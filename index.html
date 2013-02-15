@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+<head>
+  <meta charset='utf-8'>
+  <title>Development with Vagrant - Presentation by Alan Peabody</title>
+  <link rel='stylesheet' href='css/reveal.min.css'>
+  <link rel='stylesheet' href='css/night.css' id='theme'>
+  <link rel='stylesheet' href='css/zenburn.css'>
+</head>
+<body>
+  <div class='reveal'>
+    <div class='slides'>
+
+
+      <section>
+        <p>Why you should use</p>
+        <h1>Vagrant</h1>
+        <p>for your development environment.</p>
+      </section>
+
+
+      <section>
+        <p>Because it is awesome</p>
+      </section>
+
+      <section>
+        <p>End.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class='progress'><span></span></div>
+
+  <script src='js/highlight.js'></script>
+  <script src='js/head.min.js'></script>
+  <script src='js/reveal.min.js'></script>
+  <script>
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Apply a 3D roll to links on hover
+      rollingLinks: false,
+      // Transition style
+      transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+      theme: 'night',
+
+      dependencies: [
+        // Syntax highlight for <code> elements
+        { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+      ]
+    });
+  </script>
+</body>
+</html>
