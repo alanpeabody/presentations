@@ -3,9 +3,9 @@
 <head>
   <meta charset='utf-8'>
   <title>Introduction to Elixir - Presentation by Alan Peabody</title>
-  <link rel='stylesheet' href='css/reveal.min.css'>
-  <link rel='stylesheet' href='css/night.css' id='theme'>
-  <link rel='stylesheet' href='css/zenburn.css'>
+  <link rel='stylesheet' href='../css/reveal.min.css'>
+  <link rel='stylesheet' href='../css/night.css' id='theme'>
+  <link rel='stylesheet' href='../css/zenburn.css'>
 </head>
 <body>
   <div class='reveal'>
@@ -19,22 +19,142 @@
         <h2>Web</h2>
       </section>
 
-
       <section>
-        <p>Because it is awesome</p>
+        <h2>Who am I?</h2>
+        <p>Alan Peabody - Developer @ <a href='http://agilionapps.com/'>Agilion Apps</a></p>
+        <p>Ruby - Javascript - Clojure - Elixir?</p>
+        <p>Slides: <a href='http://alanpeabody.com/presentations/introduction-to-elixir'>http://alanpeabody.com/presentations/introduction-to-elixir</a></p>
       </section>
 
       <section>
-        <p>End.</p>
+        <h2>What is Elixir?</h2>
+        <blockquote>
+          Elixir is a functional meta-programming aware language built on top of the Erlang VM. It is a dynamic language with flexible syntax with macros support that leverages Erlang's abilities to build concurrent, distributed, fault-tolerant applications with hot code upgrades.
+        </blockquote>
+          <p class='attribution'>&mdash; <a href='http://elixir-lang.com'>elixir-lang.com</a></p>
+
       </section>
+
+      <section>
+        <section>
+          <h2>Influences</h2>
+        </section>
+
+        <section>
+          <h3>Erlang</h3>
+          <ul>
+            <li>Compiles to Erlang Bytecode</li>
+            <li>Actor Model</li>
+            <li>Message Passing, OTP</li>
+            <li>Pattern matching</li>
+            <li>Guards</li>
+            <li>Hot code swapping</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Ruby</h3>
+          <p>Syntax</p>
+          <pre><code>
+            defmodule Example do
+
+              def do_something(variable) do
+                IO.puts "Called Example.do_something(#{variable})"
+              end
+
+            end
+            Example.do_something(:symbol)
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Clojure/Lisp</h3>
+          <ul>
+            <li>Macros</li>
+            <li>Leiningen build tool</li>
+            <li>Protocols</li>
+            <li>Includes/Imports/Refers</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Installation</h2>
+        </section>
+
+        <section>
+          <h3>Install Erlang</h3>
+          <pre><code class='bash'>
+          # Ubuntu
+          sudo apt-get install erlang
+          # OS X
+          brew install erlang
+          </code></pre>
+        </section>
+        <section>
+          <h3>Install Elixir</h3>
+          <pre><code class='bash'>
+          # Ubuntu
+          cd ~
+          git clone git://github.com/elixir-lang/elixir.git
+          cd elixir
+          git checkout v0.8.1
+          make
+          cat "$PATH=$PATH:$HOME/elixir/bin" >> ~/.zshrc
+          # OS X
+          brew install elixir
+          </code></pre>
+        </section>
+        <section>
+          <h3>Install Rebar</h3>
+          <p>Erlang build tool, for erlang library dependencies</p>
+          <pre><code class='bash'>
+          # Assumes ~/bin is in your path
+          cd ~/bin
+          wget http://cloud.github.com/downloads/basho/rebar/rebar
+          chmod u+x rebar
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Our First Application</h2>
+      </section>
+
+      <section>
+        <p>Stepping back</p>
+        <h2>Elixir Syntax 101</h2>
+      </section>
+
+      <section>
+        <h2>Implementing Pascal</h2>
+      </section>
+
+      <section>
+        <p>Bonus!</p>
+        <h2>Dynamo</h2>
+        <p>Elixir Web Development</p>
+      </section>
+
+      <section>
+        <h2>Thank you!</h2>
+        <p>Alan Peabody</p>
+        <ul>
+          <li>Twitter: <a href='http://twitter.com/alanpeabody'>@alanpeabody</a></li>
+          <li>Github: <a href='http://github.com/alanpeabody'>alanpeabody</a></li>
+          <li>Slides: <a href='http://alanpeabody.com/presentations/introduction-to-elixir'>http://alanpeabody.com/presentations/introduction-to-elixir</a></li>
+        </ul>
+      </section>
+
     </div>
   </div>
 
   <div class='progress'><span></span></div>
 
-  <script src='js/highlight.js'></script>
-  <script src='js/head.min.js'></script>
-  <script src='js/reveal.min.js'></script>
+  <script src='../js/highlight.js'></script>
+  <script src='../js/head.min.js'></script>
+  <script src='../js/reveal.min.js'></script>
   <script>
     Reveal.initialize({
       // Display controls in the bottom right corner
@@ -57,7 +177,7 @@
 
       dependencies: [
         // Syntax highlight for <code> elements
-        { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        { src: '../js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
       ]
     });
   </script>
