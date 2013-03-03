@@ -22,7 +22,7 @@
       <section>
         <h2>Who am I?</h2>
         <p>Alan Peabody - Developer @ <a href='http://agilionapps.com/'>Agilion Apps</a></p>
-        <p>Ruby - Javascript - Clojure - Elixir?</p>
+        <p>Rubyist - JavaScripter - Clojurian - Elixir-er?</p>
         <p>Slides: <a href='http://alanpeabody.com/presentations/introduction-to-elixir'>http://alanpeabody.com/presentations/introduction-to-elixir</a></p>
       </section>
 
@@ -31,8 +31,7 @@
         <blockquote>
           Elixir is a functional meta-programming aware language built on top of the Erlang VM. It is a dynamic language with flexible syntax with macros support that leverages Erlang's abilities to build concurrent, distributed, fault-tolerant applications with hot code upgrades.
         </blockquote>
-          <p class='attribution'>&mdash; <a href='http://elixir-lang.com'>elixir-lang.com</a></p>
-
+        <p class='attribution'>&mdash; <a href='http://elixir-lang.com'>elixir-lang.com</a></p>
       </section>
 
       <section>
@@ -56,14 +55,14 @@
           <h3>Ruby</h3>
           <p>Syntax</p>
           <pre><code>
-            defmodule Example do
+defmodule Example do
 
-              def do_something(variable) do
-                IO.puts "Called Example.do_something(#{variable})"
-              end
+  def do_something(variable) do
+    IO.puts "Called Example.do_something(#{variable})"
+  end
 
-            end
-            Example.do_something(:symbol)
+end
+Example.do_something(:symbol)
           </code></pre>
         </section>
 
@@ -85,46 +84,257 @@
 
         <section>
           <h3>Install Erlang</h3>
+          <p>Ubuntu</p>
           <pre><code class='bash'>
-          # Ubuntu
-          sudo apt-get install erlang
-          # OS X
-          brew install erlang
+sudo apt-get install erlang
+          </code></pre>
+          <p>OS X</p>
+          <pre><code class='bash'>
+brew install erlang
           </code></pre>
         </section>
         <section>
           <h3>Install Elixir</h3>
+          <p>Ubuntu</p>
           <pre><code class='bash'>
-          # Ubuntu
-          cd ~
-          git clone git://github.com/elixir-lang/elixir.git
-          cd elixir
-          git checkout v0.8.1
-          make
-          cat "$PATH=$PATH:$HOME/elixir/bin" >> ~/.zshrc
-          # OS X
-          brew install elixir
+cd ~
+git clone git://github.com/elixir-lang/elixir.git
+cd elixir
+git checkout v0.8.1
+make
+cat "$PATH=$PATH:$HOME/elixir/bin" >> ~/.zshrc
+          </code></pre>
+          <p>OS X</p>
+          <pre><code class='bash'>
+brew install elixir
           </code></pre>
         </section>
         <section>
           <h3>Install Rebar</h3>
           <p>Erlang build tool, for erlang library dependencies</p>
           <pre><code class='bash'>
-          # Assumes ~/bin is in your path
-          cd ~/bin
-          wget http://cloud.github.com/downloads/basho/rebar/rebar
-          chmod u+x rebar
+# Assumes ~/bin is in your path
+cd ~/bin
+wget http://cloud.github.com/downloads/basho/rebar/rebar
+chmod u+x rebar
           </code></pre>
         </section>
       </section>
 
       <section>
-        <h2>Our First Application</h2>
+        <section>
+          <h2>Our First Application</h2>
+        </section>
+
+        <section>
+          <h3>Pascal</h3>
+          <p>Building an Elixir application with OTP that returns Pascal's Triangles.</p>
+          <pre>
+
+                                         1
+                                        1,1
+                                       1,2,1
+                                      1,3,3,1
+                                     1,4,6,4,1
+
+          </pre>
+          <p>Mix, Ex:Unit, Guards, Recursion, OTP</p>
+        </section>
+
+        <section>
+          <h3>Generating an application</h3>
+          <pre><code class='bash'>
+mix new pascal --sup
+cd pascal
+mix do deps.get, test
+
+> Compiled lib/pascal.ex
+> Compiled lib/pascal/supervisor.ex
+> Generated pascal.app
+> .
+> 1 test, 0 failures
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>iex</h3>
+          <p>Start an interactive Elixir repl/console, and include your application.</p>
+          <pre><code class='bash'>
+iex -S mix
+          </code></pre>
+          <pre><code class='ruby'>
+iex(1)> IO.puts("Hello VTFun!")
+Hello VTFun!
+:ok
+          </code></pre>
+        </section>
       </section>
 
       <section>
-        <p>Stepping back</p>
-        <h2>Elixir Syntax 101</h2>
+        <section>
+          <p>Stepping back</p>
+          <h2>Elixir Syntax 101</h2>
+        </section>
+
+        <section>
+          <h3>Bindings</h3>
+          <p>(and re-binding)</p>
+          <pre><code class='ruby'>
+iex(1)> my_binding = "wat"
+"wat"
+iex(2)> my_binding = "WAT!!!"
+"WAT!!!"
+iex(3)> my_binding
+"WAT!!!"
+          </code></pre>
+          <pre class='fragment'><code class='ruby'>
+iex(1)> another_binding = "original"
+"original"
+iex(2)> ^another_binding = "original"
+"original"
+iex(3)> ^another_binding = "new"
+** (MatchError) no match of right hand side value: "new"
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Strings</h3>
+          <p>Elixir string are utf-8 binary strings.</p>
+          <pre><code class='ruby'>
+iex(1)> is_binary("string")
+true
+iex(2)> is_list("string")
+false
+iex(3)> String.split("Who,loves,CSVs?", ",")
+["Who","Loves","CSVs?"]
+          </code></pre>
+          <div class='fragment'>
+            <p>Erlang strings are actually a list of characters. This is not fast.</p>
+            <pre><code class='erlang'>
+1> is_binary("string").
+false
+2> is_list("string").
+true
+3> is_binary(<<"string">>).
+true
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h3>Atoms</h3>
+          <p>Ruby <code>:symbols</code>, Clojure <code>:keywords</code>, Erlang <code>atoms</code></p>
+          <pre><code class='ruby'>
+iex(1)> my_symbol = :ok
+:ok
+iex(2)> :ok = my_symbol
+:ok
+iex(3)> :ok = :error
+** (MatchError) no match of right hand side value: :error
+iex(4)> :ok = "ok"
+** (MatchError) no match of right hand side value: :error
+iex(5)> :ok == "ok"
+false
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Numbers</h3>
+          <pre><code class='ruby'>
+iex(1)> 1 + 1
+2
+iex(2)> 1 + 2.0
+3.0
+iex(3)> 1/2
+0.5
+iex(4)> div 1, 2
+0
+iex(5)> 0 == 0.0
+true
+iex(6)> 0 === 0.0
+true
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Lists</h3>
+          <p>Linked Lists</p>
+          <pre><code class='ruby'>
+iex(1)> is_list([1,2,3])
+true
+iex(2)> [head | tail] = [1,2,3]
+[1,2,3]
+iex(3)> head
+1
+iex(4)> tail
+[2,3]
+iex(5)> [4 | tail]
+[4,2,3]
+iex(6)> ["4" | tail]
+["4",2,3]
+iex(7)> length tail
+2
+iex(8)> Enum.empty? tail
+false
+iex(9)> List.flatten [1,tail,[4,5]]
+[1,2,3,4,5]
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Tuples</h3>
+          <p>Stored contiguously in memory</p>
+          <pre><code class='ruby'>
+iex(1)> is_tuple({:ok, 200})
+true
+iex(2)> {status, code} = {:ok, 200}
+{:ok,200}
+iex(3)> status
+:ok
+iex(4)> code
+200
+iex(5)> {:ok, status, body} = {:ok, 200, "Hello World"}
+{:ok,200,"Hello World"}
+iex(6)> {:ok, status, body} = {:error, 500, "Application Error"}
+** (MatchError) no match of right hand side value: {:error,500,"Application Error"}
+iex(7)> tuple = {:at, 1, "a", "b", 2, :om}
+{:at,1,"a","b",2,:om}
+iex(8)> elem tuple, 2
+"a"
+iex(9)> setelem tuple, 2, "aardvark" # expensive, copies whole tuple
+{:at,1,"aardvark","b",2,:om}
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Keyword Lists</h3>
+          <p>Represented as a list of tuples, same as Erlang's <code>Orddict</code>.</p>
+          <pre><code class='ruby'>
+iex(1)> headers = [status: :ok, code: 200]
+[status: :ok, code: 200]
+iex(2)> [first | rest] = headers
+[status: :ok, code: 200]
+iex(3)> first
+{:status,:ok}
+iex(4)> options = [foo: "foo", bar: "bar", foo: "more foo!?"]
+[foo: "foo", bar: "bar", foo: "more foo!?"]
+iex(5)> options[:foo]
+"foo"
+iex(6)> Keyword.get(options, :foo)
+"foo"
+iex(7)> Keyword.get_values(options, :foo)
+["foo","more foo!?"]
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Functions</h3>
+        </section>
+
+        <section>
+          <h3>Recursion</h3>
+        </section>
+
       </section>
 
       <section>
