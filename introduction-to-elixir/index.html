@@ -6,12 +6,11 @@
   <link rel='stylesheet' href='../css/reveal.min.css'>
   <link rel='stylesheet' href='../css/night.css' id='theme'>
   <link rel='stylesheet' href='../css/zenburn.css'>
+  <link rel='stylesheet' href='../css/customizations.css'>
 </head>
 <body>
   <div class='reveal'>
     <div class='slides'>
-
-
       <section>
         <p>Introduction to</p>
         <h1>Elixir</h1>
@@ -144,9 +143,9 @@ chmod u+x rebar
         <section>
           <h3>Generating an application</h3>
           <pre><code class='bash'>
-mix new pascal --sup
-cd pascal
-mix do deps.get, test
+$ mix new pascal --sup
+$ cd pascal
+$ mix do deps.get, test
 
 > Compiled lib/pascal.ex
 > Compiled lib/pascal/supervisor.ex
@@ -160,7 +159,7 @@ mix do deps.get, test
           <h3>iex</h3>
           <p>Start an interactive Elixir repl/console, and include your application.</p>
           <pre><code class='bash'>
-iex -S mix
+$ iex -S mix
           </code></pre>
           <pre><code class='ruby'>
 iex(1)> IO.puts("Hello VTFun!")
@@ -205,7 +204,11 @@ iex(1)> is_binary("string")
 true
 iex(2)> is_list("string")
 false
-iex(3)> String.split("Who,loves,CSVs?", ",")
+iex(4)> world = "World"
+"World!"
+iex(5)> "Hello interpolated #{world}!"
+"Hello interpolated World!"
+iex(6)> String.split("Who,loves,CSVs?", ",")
 ["Who","Loves","CSVs?"]
           </code></pre>
           <div class='fragment'>
@@ -326,19 +329,101 @@ iex(7)> Keyword.get_values(options, :foo)
 ["foo","more foo!?"]
           </code></pre>
         </section>
-
-        <section>
-          <h3>Functions</h3>
-        </section>
-
-        <section>
-          <h3>Recursion</h3>
-        </section>
-
       </section>
 
       <section>
-        <h2>Implementing Pascal</h2>
+        <section>
+          <h2>Implementing Pascal</h2>
+        </section>
+
+        <section>
+          <h3>The Triangle Module</h3>
+          <div class='side-by-side'>
+            <div class='left'>
+              <p><code>test/pascal/triangle_test.exs</code></p>
+              <pre><code class='ruby'>
+Code.require_file "../../test_helper.exs", __FILE__
+
+defmodule TriangleTest do
+  use ExUnit.Case
+
+  test "generating a triangle" do
+    <span class='fragment' data-fragment-index="1">assert Pascal.Triangle.generate(0) == []
+    assert Pascal.Triangle.generate(1) == [[0,1,0]]
+    assert Pascal.Triangle.generate(2) == [[0,1,0],
+                                           [0,1,1,0]]
+    assert Pascal.Triangle.generate(3) == [[0,1,0],
+                                           [0,1,1,0],
+                                           [0,1,2,1,0]]</span>
+  end
+
+end
+              </code></pre>
+            </div>
+            <div class='right'>
+              <p><code>lib/pascal/triangle.ex</code></p>
+              <pre><code class='ruby'>
+defmodule Pascal.Triangle do
+  <span class='fragment' data-fragment-index="2">
+  def generate(0) do
+    []
+  end
+  </span><span class='fragment' data-fragment-index="3">
+  def generate(1) do
+    [[0,1,0]]
+  end
+  </span><span class='fragment' data-fragment-index="3">
+  def generate(2) do # Seriously?
+    [[0,1,0],[0,1,1,0]]
+  end
+  </span>
+end
+              </code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Recursion w/ Guards</h3>
+          <pre><code class='ruby smaller'>
+defmodule Pascal.Triangle do
+  def generate(0) do
+    []
+  end
+  <span class='fragment'>
+  def generate(rows) do
+    generate([[0,1,0]], rows, 1)
+  end
+  </span><span class='fragment'>
+  defp generate(triangle, max, current) when max >= current do
+    triangle
+  end
+  </span><span class='fragment'>
+  defp generate(triangle, max, current) do
+    generate([[0,1,0] | triangle], max, current + 1)
+  end
+  </span>
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Pascal's <strike>Triangle</strike> Rectangle!</h3>
+
+          <pre><code class='bash'>
+$ iex -S mix
+          </code></pre>
+          <pre><code class='ruby'>
+iex(1)> Pascal.Triangle.generate(5)
+[[0,1,0],
+ [0,1,0],
+ [0,1,0],
+ [0,1,0],
+ [0,1,0]]
+          </code></pre>
+
+        </section>
+
       </section>
 
       <section>

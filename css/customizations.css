@@ -1,0 +1,9 @@
+.side-by-side code {
+  font-size: 70%;
+}
+
+.side-by-side .left,
+.side-by-side .right {
+  float: left;
+  width: 50%;
+}
