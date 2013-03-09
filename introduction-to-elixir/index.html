@@ -14,8 +14,6 @@
       <section>
         <p>Introduction to</p>
         <h1>Elixir</h1>
-        <p>and functional programming for the</p>
-        <h2>Web</h2>
       </section>
 
       <section>
@@ -31,6 +29,7 @@
           Elixir is a functional meta-programming aware language built on top of the Erlang VM. It is a dynamic language with flexible syntax with macros support that leverages Erlang's abilities to build concurrent, distributed, fault-tolerant applications with hot code upgrades.
         </blockquote>
         <p class='attribution'>&mdash; <a href='http://elixir-lang.com'>elixir-lang.com</a></p>
+        <p>Written by Jose Valim</p>
       </section>
 
       <section>
@@ -48,21 +47,21 @@
             <li>Guards</li>
             <li>Hot code swapping</li>
           </ul>
+          <aside class='notes'>
+            Does not compile to Erlang - ala CoffeScript<br>
+            Compiles to bytecode, ala Clojure
+          </aside>
         </section>
 
         <section>
           <h3>Ruby</h3>
-          <p>Syntax</p>
-          <pre><code>
-defmodule Example do
-
-  def do_something(variable) do
-    IO.puts "Called Example.do_something(#{variable})"
-  end
-
-end
-Example.do_something(:symbol)
-          </code></pre>
+          <ul>
+            <li>Syntax</li>
+            <li>Dependency management</li>
+          </ul>
+          <aside class='notes'>
+            Jose Valim - Rails core contributor
+          </aside>
         </section>
 
         <section>
@@ -73,12 +72,18 @@ Example.do_something(:symbol)
             <li>Protocols</li>
             <li>Includes/Imports/Refers</li>
           </ul>
+          <aside class='notes'>
+            not going to get into macros, protocols, etc - Check out the documentation.
+          </aside>
         </section>
       </section>
 
       <section>
         <section>
           <h2>Installation</h2>
+          <aside class='notes'>
+            speed through this, emphasize how easy it is
+          </aside>
         </section>
 
         <section>
@@ -155,10 +160,14 @@ $ mix new pascal --sup
 * creating test/test_helper.exs
 * creating test/pascal_test.exs
           </code></pre>
+
+          <aside class='notes'>
+            super easy to get started, --sup generates OTP application supervisor
+          </aside>
         </section>
 
         <section>
-          <h3>Mix - Package Management and Build Tool</h3>
+          <h3>Mix - Package Management</h3>
           <p><code>mix.exs</code></p>
           <pre><code class='ruby'>defmodule Pascal.Mixfile do
   use Mix.Project
@@ -180,20 +189,22 @@ $ mix new pascal --sup
     []
   end
 end </code></pre>
+          <aside class='notes'>
+            no deps for this app, example equiv to github: elixir-lang/foobar
+          </aside>
         </section>
 
         <section>
-          <h3>Mix - Package Management and Build Tool</h3>
+          <h3>Mix - Build Tool</h3>
           <pre><code class='bash'>
-$ mix do deps.get, test
-
+$ mix test
 > Compiled lib/pascal.ex
 > Compiled lib/pascal/supervisor.ex
 > Generated pascal.app
 > .
 > 1 test, 0 failures
           </code></pre>
-          <pre><code class='bash'>
+          <pre class='fragment'><code class='bash'>
 $ mix help
 mix clean           # Clean generated application files
 mix compile         # Compile source files
@@ -208,6 +219,9 @@ mix do              # Executes the commands separated by comma
 mix run             # Run the given expression
 mix test            # Run a project's tests
           </code></pre>
+          <aside class='notes'>
+            no deps, so deps.get did nothing, mix do is awesome
+          </aside>
         </section>
 
         <section>
@@ -221,6 +235,9 @@ iex(1)> IO.puts("Hello VTFun!")
 Hello VTFun!
 :ok
           </code></pre>
+          <aside class='notes'>
+            starting a repl, easy to play with elixir
+          </aside>
         </section>
       </section>
 
@@ -228,6 +245,9 @@ Hello VTFun!
         <section>
           <p>Stepping back</p>
           <h2>Elixir Syntax 101</h2>
+          <aside class='notes'>
+            So we have an application generated, lets step back and talk a little about elixir syntax before we start implementation of the triangle.
+          </aside>
         </section>
 
 
@@ -249,11 +269,8 @@ iex(6)> String.split("Who,loves,CSVs?", ",")
 ["Who","Loves","CSVs?"]
           </code></pre>
           <aside class='notes'>
-            <ul>
-              <li>Utf 8 string</li>
-              <li>first string Binding</li>
-              <li>Erlang uses lists of characters</li>
-            </ul>
+            Utf 8 string, first <b>Binding</b>, Erlang uses lists of characters which makes it really bad at manipulating text<br>
+            Advanced: you can re-bind - weird, I know - ask about after presentation
           </aside>
         </section>
 
@@ -276,7 +293,8 @@ false
 iex(7)> 0 = 0
 0</span></code></pre>
           <aside class='notes'>
-            
+            elixir number typing tries to guess what you want<br/>
+            what is this 0 = 0 doing?, pattern matching!
           </aside>
         </section>
 
@@ -294,10 +312,13 @@ iex(3)> :ok = :ok
 iex(4)> :ok = :error
 ** (MatchError) no match of right hand side value: :error
 iex(5)> :ok = "ok"
-** (MatchError) no match of right hand side value: :error
+** (MatchError) no match of right hand side value: "ok"
           </code></pre>
           <aside class='notes'>
-            
+            Atoms are values that only evaluate to themselves<br>
+            Then what is going on here? - Pattern matching!<br>
+            atom pattern matching (along with tuples) is key concept in working with elixir & erlang.<br>
+            (Module names are also atoms - more advanced topic!)<br>
           </aside>
         </section>
 
@@ -313,15 +334,17 @@ iex(3)> head
 1
 iex(4)> tail
 [2,3]
-iex(5)> [4 | tail]
+<span class='fragment'>iex(5)> [4 | tail]
 [4,2,3]
 iex(6)> ["4" | tail]
 ["4",2,3]
 iex(7)> length tail
-2
+2</span>
           </code></pre>
           <aside class='notes'>
-            
+            lists are linked lists of any type, O(N) access.<br>
+            head/tail pattern matching syntax<br>
+            adding item to a list
           </aside>
         </section>
 
@@ -337,17 +360,20 @@ iex(3)> status
 :ok
 iex(4)> code
 200
-iex(5)> {:ok, status, body} = {:ok, 200, "Hello World"}
+<span class='fragment'>iex(5)> {:ok, status, body} = {:ok, 200, "Hello World"}
 {:ok,200,"Hello World"}
 iex(6)> {:ok, status, body} = {:error, 500, "Application Error"}
 ** (MatchError) no match of right hand side value: {:error,500,"Application Error"}
-iex(7)> tuple = {:at, 1, "a", "b", 2, :om}
-{:at,1,"a","b",2,:om}
-iex(8)> elem tuple, 2
-"a"
-iex(9)> setelem tuple, 2, "aardvark" # expensive, copies whole tuple
-{:at,1,"aardvark","b",2,:om}
+iex(7)> { _, _, body } = {:error, 500, "Application Error"}
+{:error, 500, "Application Error"}
+iex(8)> body
+"winning"</span>
           </code></pre>
+          <aside class='notes'>
+            tuples are integral to erlang & elixir<br>
+            positional matching<br>
+            _ is ignore this
+          </aside>
         </section>
 
         <section>
@@ -369,12 +395,19 @@ iex(6)> Keyword.get(options, :foo)
 iex(7)> Keyword.get_values(options, :foo)
 ["foo","more foo!?"]
           </code></pre>
+          <aside class='notes'>
+            This is a linked list, so not hash/map speed<br>
+            Often used for passing options to functions
+          </aside>
         </section>
       </section>
 
       <section>
         <section>
           <h2>Implementing Pascal</h2>
+          <aside class='notes'>
+            We have some basics, so lets dive in.
+          </aside>
         </section>
 
         <section>
@@ -465,12 +498,6 @@ iex(1)> Pascal.Triangle.generate(5)
 
         </section>
 
-      </section>
-
-      <section>
-        <p>Bonus!</p>
-        <h2>Dynamo</h2>
-        <p>Elixir Web Development</p>
       </section>
 
       <section>
