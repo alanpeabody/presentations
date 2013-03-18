@@ -455,30 +455,36 @@ end
               </code></pre>
             </div>
           </div>
+          <aside class='notes'>
+            We have some basics, so lets dive in.
+          </aside>
         </section>
 
         <section>
           <h3>Recursion w/ Guards</h3>
-          <pre><code class='ruby smaller'>
-defmodule Pascal.Triangle do
+          <pre><code class='ruby smaller'>defmodule Pascal.Triangle do
   def generate(0) do
     []
   end
   <span class='fragment'>
-  def generate(rows) do
-    generate([[0,1,0]], rows, 1)
+  def generate(rows_to_generate) do
+    generate([[0,1,0]], 1, rows_to_generate)
   end
   </span><span class='fragment'>
-  defp generate(triangle, max, current) when max >= current do
+  defp generate(triangle, current, max) when max >= current do
     triangle
   end
   </span><span class='fragment'>
-  defp generate(triangle, max, current) do
-    generate([[0,1,0] | triangle], max, current + 1)
-  end
-  </span>
-end
-          </code></pre>
+  defp generate(triangle, current, max) do
+    generate([[0,1,0] | triangle], current + 1, max)
+  end</span>
+end</code></pre>
+          <aside class='notes'>
+            Okay, start out the same as before, 0 is empty list<br>
+            Then we need to take a dynamically bound argument, calling a generate method with arity of 3. First two arguments are called "accumulators".<br>
+            Defining our new private method. This is very common pattern, hiding implementation in private method. This is also our first guard. Just returns triangle accumulator.<br>
+            Now we define a second method, one that adds a row to triangle accumulator, as well as to our row count accumulator. Great but....
+          </aside>
         </section>
 
         <section>
@@ -495,7 +501,74 @@ iex(1)> Pascal.Triangle.generate(5)
  [0,1,0],
  [0,1,0]]
           </code></pre>
+          <aside class='notes'>
+            Well at least we have the right number of rows.
+          </aside>
+        </section>
 
+        <section>
+          <h3>Generating rows</h3>
+          <pre><code class='ruby smaller'>defmodule Pascal.Triangle do
+  # ...
+  defp new_row(previous) do
+   new_row(previous, [], 0)
+  end
+
+  <span class='fragment'>defp new_row([], final, 0) do
+    [ 0 | final ] # We built this backwords and should reverse, but it is a palindrome.
+  end</span><span class='fragment'>
+
+  defp new_row([h | t], new, last_item) do
+    new_row(t, [h + last_item | new], h)
+  end</span>
+end
+          </code></pre>
+          <aside class='notes'>
+            Same pattern of hiding implementation methods. Two accumulators, the previous row and the new row, also the current position in row.<br>
+            This is our "finish" clause, need to be in this order, lets skip ahead and come back...<br>
+            A lot going on here. grabbing head and tail of last row, adding it to last_item (seeded with 0), pushing on new row.<br>
+            Looking back we add our final 0. We built up backwords, but it is a palindrome, so it is okay.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Hooking up add_row</h3>
+          <pre><code class='ruby smaller'>defmodule Pascal.Triangle do
+  # ... generate/1 etc
+
+  defp generate(triangle, current, max) do
+    [ previous_row | _ ] = triangle
+    generate([new_row(previous_row) | triangle], current + 1, max)
+  end
+
+  # ... new_row/1 etc
+end
+          </code></pre>
+          <aside class='notes'>
+            In the last generate method we need to call function to actually generate a bigger row, lets add the call.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Pascal's Triangle!</h3>
+
+          <pre><code class='bash'>
+$ iex -S mix
+          </code></pre>
+          <pre><code class='ruby'>
+iex(1)> Pascal.Triangle.generate(5)
+[[0,1,0],
+ [0,1,1,0],
+ [0,1,2,1,0],
+ [0,1,3,3,1,0],
+ [0,1,4,6,4,1,0]]
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>OTP</h2>
         </section>
 
       </section>
