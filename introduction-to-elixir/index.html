@@ -142,7 +142,7 @@ chmod u+x rebar
                                      1,4,6,4,1
 
           </pre>
-          <p>Mix, Ex:Unit, Guards, Recursion, OTP</p>
+          <p>Mix, Ex:Unit, Guards, Recursion</p>
         </section>
 
         <section>
@@ -568,9 +568,129 @@ iex(1)> Pascal.Triangle.generate(5)
 
       <section>
         <section>
-          <h2>OTP</h2>
+          <h2>Concurrency</h2>
         </section>
 
+        <section>
+          <h3>Erlang/Elixir Concurrency Model</h3>
+          <ul>
+            <li>You run many extremely lightweight processes. Over a million per machine is common.</li>
+            <li>Each process has a Process Identifier (pid)</li>
+            <li>You can "register" a pid as a name to easily lookup elsewhere.</li>
+            <li>Pids can be local to your machine, or on a completely different machine.</li>
+            <li>Messages can be sent to a pid where it is queued for action.</li>
+            <li>Sending a message does not return anything</li>
+            <li>Typically you send "from" pid with you message to have results returned</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Message Example (w/o OTP)</h3>
+          <pre><code class='bash'>
+$ iex -S mix
+          </code></pre>
+          <pre><code class='ruby'>
+iex(1)> pid = Kernel.self
+#PID<0.26.0>
+iex(2)> pid <- {:ok, "Look, a message!"}
+{:ok, "Look, a message!"}
+iex(3)> receive do  
+...(3)>   {:ok, message} -> IO.puts(message)
+...(3)> end
+Look, a message!
+:ok
+          </code></pre>
+          <aside class='notes'>
+            Yes this is dumb, sending a message to ourself.<br>
+            Important to note that message was sitting in box waiting for something to receive it.<br>
+            Receive blocks until it gets a message. In external process you would have main function running receive and recurring.
+          </aside>
+        </section>
+
+        <section>
+          <h3>OTP</h3>
+          <ul>
+            <li>Open Telcom Platform - really is about "software that has properties of telcom apps."</li>
+            <li>Hard to know when Erlang stops and OTP begins.</li>
+            <li>Abstracts common patterns into reusable, highly tested code.
+              <ul>
+                <li>Applications</li>
+                <li>Supervisors</li>
+                <li>Workers (Servers, Finite State Machines, Event Handlers)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>OTP Applications</h3>
+          <p>Starts and stops a set of supervisors and workers that function as a logical unit.</p>
+          <p><code>mix.exs</code></p>
+          <pre><code class='ruby'># Configuration for the OTP application
+  def application do
+    [mod: { Pascal, [] }]
+  end </code></pre>
+          <p><code>lib/pascal.ex</code></p>
+          <pre><code class='ruby'>defmodule Pascal do
+  use Application.Behaviour
+
+  # See http://elixir-lang.org/docs/stable/Application.Behaviour.html
+  # for more information on OTP Applications
+  def start(_type, _args) do
+    Pascal.Supervisor.start_link
+  end
+end</code></pre>
+        </section>
+
+        <section>
+          <h3>OTP Supervisors</h3>
+          <p>Processes that supervise other processes, including workers and other supervisors</p>
+          <p><code>lib/pascal/supervisor.ex</code></p>
+          <pre><code class='ruby'>defmodule Pascal.Supervisor do
+  use Supervisor.Behaviour
+
+  def start_link do
+    :supervisor.start_link(__MODULE__, [])
+  end
+
+  def init([]) do
+    children = [
+      # Define workers and child supervisors to be supervised
+      worker(Pascal.Worker, [])
+    ]
+
+    supervise children, strategy: :one_for_one
+  end
+end </code></pre>
+        </section>
+
+        <section>
+          <h3>OTP Server</h3>
+
+          <pre><code class='ruby'>
+defmodule Pascal.Worker do
+  use GenServer.Behaviour
+
+  def start_link do
+    :gen_server.start_link({ :local, :worker }, __MODULE__, [], [])
+  end
+
+  def handle_call({:rows, rows}, _from, state) do
+    {:reply, {:triangle, Triangle.generate(rows)}, state}
+  end
+end
+          </code></pre>
+        </section>
+      </section>
+
+      <section>
+        <h2>Resources</h2>
+        <ul>
+          <li>Elixir Getting Started Guide: <a href='http://elixir-lang.org/getting_started/1.html'>http://elixir-lang.org/getting_started/1.html</a></li>
+          <li>Elixir Documentation: <a href='http://elixir-lang.org/docs/master/'>http://elixir-lang.org/docs/master/</a></li>
+          <li>Elixir on IRC - #elixir-lang on Freenode</li>
+          <li>Learn you some Erlang for Great Good: <a href='http://learnyousomeerlang.com/'>http://learnyousomeerlang.com/</a></li>
+        </ul>
       </section>
 
       <section>
