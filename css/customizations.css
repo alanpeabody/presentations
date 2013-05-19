@@ -8,6 +8,14 @@
   width: 50%;
 }
 
+.side-by-side {
+  clear: both;
+}
+
+.clearfix {
+  clear: both;
+}
+
 .reveal pre code {
   line-height: 1.5em;
 }

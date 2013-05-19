@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+<head>
+  <meta charset='utf-8'>
+  <title>Vagrant and Chef - Presentation by Alan Peabody &amp; Odie Routh</title>
+  <link rel='stylesheet' href='../css/reveal.min.css'>
+  <link rel='stylesheet' href='../css/night.css' id='theme'>
+  <link rel='stylesheet' href='../css/zenburn.css'>
+  <link rel='stylesheet' href='../css/customizations.css'>
+</head>
+<body>
+  <div class='reveal'>
+    <div class='slides'>
+
+
+      <section>
+        <p>Automate your infrastructure with</p>
+        <h1>Vagrant &amp; Chef</h1>
+      </section>
+
+
+      <section>
+        <h2>Who are we?</h2>
+        <p class='clearfix'>&nbsp;</p>
+        <div class='side-by-side'>
+          <div class='left'>
+            <p>Alan Peabody</p>
+            <p>Developer @ <a href='http://agilionapps.com/'>Agilion Apps</a></p>
+            <p>@alanpeabody</p>
+          </div>
+          <div class='right'>
+            <p>Odie Routh</p>
+            <p>Director of Software Engineering @ <a href='http://drakerenery.com/'>Draker</a></p>
+          </div>
+        </div>
+        <p class='clearfix'>&nbsp;</p>
+        <p class='clearfix'>Slides available at: <a href='http://alanpeabody.com/presentations/vagrant-and-chef'>http://alanpeabody.com/presentations/vagrant-and-chef</a></p>
+      </section>
+
+      <section>
+        <h2>Drifters and Cooks? What?</h2>
+        <p class='clearfix'>&nbsp;</p>
+        <div class='side-by-side'>
+          <div class='fragment left'>
+            <h3>Vagrant</h3>
+            <blockquote>
+              Vagrant is a tool for building complete development environments. With an easy-to-use workflow and focus on automation.
+            </blockquote>
+            <p class='attribution'>&mdash; <a href='http://vagrantup.com'>vagrantup.com</a></p>
+          </div>
+
+          <div class='fragment right'>
+            <h3>Chef</h3>
+            <blockquote>
+              Chef is an automation platform that transforms infrastructure into code. Stop thinking in terms of physical and virtual servers. With Chef, your real asset is the code that brings those servers and the services they provide to life
+            </blockquote>
+            <p class='attribution'>&mdash; <a href='http://opscode.com/chef/'>opscode.com/chef</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <section>
+          <h2>Vagrant Basics</h2>
+        </section>
+
+        <section>
+          <h3>Virtual Machine (VM) 101</h3>
+          <ul>
+            <li>A software implementation of hardware</li>
+            <li>Independent, Isolated</li>
+            <li><em>Host</em>: The OS/machine running the virtualization software.</li>
+            <li><em>Guest (VM)</em>: An instance running <strong>in</strong> the virtualization software.</li>
+            <li>Examples:
+              <ul>
+                <li>VirtualBox, VMWare, Xen, KVM, QEMU</li>
+                <li>AWS, Rackspace Cloud, Heroku, etc</li>
+              </ul>
+            </li>
+          </ul>
+
+          <aside class='notes'>
+            <p>Note: We are talking hardware virtualization, not process (language VMs).</p>
+            <p>Vagrant uses VirtualBox by default, but can also use VMWare and AWS.</p>
+          </aside>
+
+        </section>
+
+        <section>
+          <h3>The Vagrant Experience</h3>
+          <ul>
+            <li>Use the IDE, editor, browser, VCS, and tools you already use!</li>
+            <li>Services and packages needs to execute code runs in VM.</li>
+            <li>Application environments are:
+              <ul>
+                <li>Isolated</li>
+                <li>Controlled</li>
+                <li>Uniform</li>
+                <li>Reproducible/Repeatable</li>
+                <li>Shareable</li>
+                <li>Similar to Production</li>
+              </ul>
+            </li>
+          </ul>
+
+          <aside class='notes'>
+            <p>You still use the tools you know and love. No workflow changes when developing!</p>
+            <p>When you shut down your VM you shut down all your requirements. MySQL, Apache, &amp; Redis not running in the background using your battery when you don't need it.</p>
+            <p>Also makes it really easy to get new developers up and running. You are not spending hours installing software and downloading the newest version of xcode/java/whatever.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Installing VirtualBox and Vagrant</h3>
+          <ul>
+            <li>Download and install VirtualBox: <a href='https://www.virtualbox.org/wiki/Downloads'>https://www.virtualbox.org/wiki/Downloads</a></li>
+            <li>Download and install Vagrant: <a href='http://downloads.vagrantup.com/'>http://downloads.vagrantup.com/</a></li>
+            <li>Optional (but recommended) install NFS server: <code class='bash'>sudo apt-get install nfs-kernal-server</code></li>
+          </ul>
+
+          <aside class='notes'>
+            <p>Super easy to install! Two installers to run, then done. Works on OSX, Linux, Windows</p>
+            <p>Total install time should be less then 15 minutes, depending on connection speed.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Adding Vagrant</h3>
+          <pre><code class='bash'>
+cd ~/my/project/dir
+vagrant init myproject http://files.vagrantup.com/precise64.box
+          </code></pre>
+
+          <aside class='notes'>
+            <p>You can easily add Vagrant to an existing project.</p>
+            <p>We are naming vagrant box myproject and we are basing it on a Ubuntu 12.04 LTS base box.</p>
+            <p>You can choose many different community provided base boxes, or roll your own(advanced).</p>
+            <p>This create a Vagrantfile in your project root.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>The Vagrantfile</h3>
+          <p><code>~/my/project/dir/Vagrantfile</code></p>
+          <pre><code class='ruby'>
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "myproject"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+  config.vm.network :private_network, ip: '10.10.10.10'
+  config.vm.network :forwarded_port, guest: 3000, host: 3001
+
+  config.vm.synced_folder '.', '/vagrant', nfs: true
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+end
+          </code></pre>
+          <aside class='notes'>
+            <p>This is a "stripped" example.</p>
+            <p>The private network config allows you to access outside networks, but no one but host can get to vm. Public network also available with DHCP.</p>
+            <p>Forwarded ports allow you to access localhost:3001 on your host machine and see vm:3000</p>
+            <p>Synced folder - Your project root is mounted at /vagrant in the VM. Changes to files are reflected in both places. This is default behavior. I am using NFS for faster disk, so I must specify here. NFS requires root permission.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Vagrant commands</h3>
+          <ul>
+            <li>vagrant up</li>
+            <li>vagrant ssh</li>
+            <li>vagrant suspend</li>
+            <li>vagrant resume</li>
+            <li>vagrant halt</li>
+            <li>vagrant destroy</li>
+            <li>vagrant reload</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Configuring your VM</h3>
+          <ul>
+            <li>'vagrant' user has sudo access</li>
+            <li>You can install, update, configure as much as you would like.</li>
+            <li>When complete <code>vagrant package myproject</code> packages up your VM to share.</li>
+            <li>Update your vagrant file to point to your new package.
+              <pre><code class='ruby'>
+  config.vm.box = "myproject"
+  config.vm.box_url = "http://example.com/vagrant/myproject.box"
+              </code></pre>
+            </li>
+            <li>This is helpful, but Chef can take you even further!</li>
+          </ul>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Chef Basics</h2>
+      </section>
+
+      <section>
+        <h2>Vagrant + Chef = <3</h2>
+      </section>
+    </div>
+  </div>
+
+  <div class='progress'><span></span></div>
+
+  <script src='../js/highlight.js'></script>
+  <script src='../js/head.min.js'></script>
+  <script src='../js/reveal.min.js'></script>
+  <script src='../js/notes.js'></script>
+  <script>
+    Reveal.initialize({
+
+      width: '90%',
+      height: '100%',
+
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Apply a 3D roll to links on hover
+      rollingLinks: false,
+      // Transition style
+      transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+      theme: 'night',
+
+      dependencies: [
+        // Syntax highlight for <code> elements
+        { src: '../js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+    });
+  </script>
+</body>
+</html>
