@@ -198,7 +198,87 @@ end
       </section>
 
       <section>
-        <h2>Chef Basics</h2>
+        <section>
+          <h2>Chef Basics</h2>
+        </section>
+
+        <section>
+          <h3>"Infrastructure as Code" - Configuration Management</h3>
+          <ul>
+            <li>Purpose
+              <ul>
+                <li>Security baselines, Scalability, Normalization &amp; Maintainability.</li>
+                <li>The automation end goal</li>
+              </ul>
+            </li>
+            <li>Chef is a Ruby DSL for configuring your servers.</li>
+            <li>Solo vs Server vs Hosted</li>
+            <li>Alternatives include Puppet (also Ruby), Pallet (Clojure), CFEngine and more</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Life on "The Cloud"</h3>
+          <ul>
+            <li>Servers die, disks disappear - adapt and react quickly.</li>
+            <li>Spending hours configuring server is too long. New servers should be up in minutes.</li>
+            <li>Supporting your infrastructure at Scale.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Infrastructure Definition</h3>
+          <ul>
+            <li>Policy
+              <ul>
+                <li>Environments</li>
+                <li>Roles</li>
+                <li>Databags</li>
+              </ul>
+            </li>
+            <li>Nodes</li>
+            <li>Cookbooks</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Anatomy of a Cookbook</h3>
+          <ul>
+            <li>Attributes - Settings used to configure a specific node</li>
+            <li>Recipes - Carries out the actions taking in building a node</li>
+            <li>Templates - Configuration files and dynamic files loaded to node</li>
+            <li>Resources & Providers - Building custom tools for other cookbooks to use</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>The Chef Run</h3>
+          <ul>
+            <li>chef-client
+              <ul>
+                <li>run-list</li>
+              </ul>
+            </li>
+            <li>Phases
+              <ul>
+                <li>Compiling Resources</li>
+                <li>Convergence</li>
+              </ul>
+            </li>
+            <li>Idempotency</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>The Community</h3>
+          <ul>
+            <li>Reusable cookbooks</li>
+            <li>Food Fight Show podcast - <a href='http://foodfightshow.org/'>http://foodfightshow.org/</a></li>
+            <li>test-kitchen - Continuous Integration for Infrastructure</li>
+            <li>berkshelf - <a href='http://berkshelf.com/'>http://berkshelf.com/</a></li>
+          </ul>
+        </section>
+
       </section>
 
       <section>
