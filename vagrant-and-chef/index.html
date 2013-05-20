@@ -282,8 +282,141 @@ end
       </section>
 
       <section>
-        <h2>Vagrant + Chef = <3</h2>
+        <section>
+          <h2>Vagrant + Chef = <3</h2>
+        </section>
+
+        <section>
+          <h3>Use cases</h3>
+          <ul>
+            <li>App Development: Easy to create repeatable, yet custom configuration for development environments.</li>
+            <li>Cookbook development: Easy to quickly test your cookbooks before pushing them to staging. You can even boot up EC2 instances with Vagrant!</li>
+            <li>Bringing App and Environment together as soon as possible</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Berkshelf</h3>
+          <ul>
+            <li>Manages your cookbooks</li>
+            <li>Pull cookbooks from multiple sources</li>
+            <li>Install:
+              <pre><code class='bash'>
+gem install berkshelf
+vagrant plugin install vagrant-berkshelf
+berks init
+              </code></pre>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Berksfile</h3>
+          <p>APP_ROOT/Berksfile</p>
+          <pre><code class='ruby'>
+site :opscode
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'postgresql'
+
+cookbook 'rvm',
+  github: 'fnichol/chef-rvm',
+  ref: 'v0.9.0'
+
+cookbook 'postgres_vagrant',
+  github: 'AgilionApps/AgilionRecipes',
+  rel: 'cookbooks/postgres_vagrant',
+  ref: '0.4.0'
+
+cookbook 'standard_packages',
+  github: 'AgilionApps/AgilionRecipes',
+  rel: 'cookbooks/standard_packages',
+  ref: '0.4.0'
+
+cookbook 'rails_development',
+  github: 'AgilionApps/AgilionRecipes',
+  rel: 'cookbooks/rails_development',
+  ref: '0.4.0'
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>You got Chef in my Vagrant</h3>
+          <pre><code class='ruby'>Vagrant.configure("2") do |config|
+  # … Same config as before, with the following added to the config block:
+
+  config.berkshelf.enabled = true
+  config.vm.provision :chef_solo do |chef|
+    chef.add_recipe 'apt'
+    chef.add_recipe 'build-essential'
+    chef.add_recipe 'postgres_vagrant'
+    chef.add_recipe 'rvm::vagrant'
+    chef.add_recipe 'rvm::system_install'
+    chef.add_recipe 'standard_packages'
+    chef.add_recipe 'rails_development::postgres'
+
+    chef.json = {
+      'postgresql' => { 'password' => { 'postgres' => '#{password}' } },
+      'rvm' => { 'default_ruby' => '2.0.0' }
+    }
+  end
+end</code></pre>
+        </section>
+
+        <section>
+          <h3>Vagrant Up</h3>
+          <p>Running <code>vagrant up</code> now does the following:</p>
+          <ol>
+            <li>Downloads "box" from url</li>
+            <li>Downloads and installs cookbooks as defined in Berkshelf</li>
+            <li>Sets up port forwarding</li>
+            <li>Customizes VM (memory, CPU)</li>
+            <li>Boots a virtual machine from the box</li>
+            <li>Mounts NFS drive</li>
+            <li>Generates Chef JSON</li>
+            <li>Runs Chef recipes</li>
+          </ol>
+        </section>
       </section>
+
+      <section>
+        <section>
+          <h2>Other Cool Stuff</h2>
+        </section>
+
+        <section>
+          <h3>Test Kitchen</h3>
+          <p>Uses vagrant to boot VMs to test your Chef recipes. Provides integration testing to verify that your recipes are doing what you think.</p>
+        </section>
+
+        <section>
+          <h3>Vagrant on The Cloud</h3>
+          <ul>
+            <li>Boot and provision your AWS or Rackspace Cloud machines with Vagrant &amp; Chef. Folder is only synced upon boot.</li>
+            <li>When your local machine just is not enough.</li>
+            <li>When you need more VMs than your local machine can handle.</li>
+            <li>Test your Chef recipes in the actual environment they are used in.</li>
+            <li>Quickly launch staging and even production servers.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <h2>Thank you!</h2>
+        <div class='side-by-side'>
+          <div class='left'>
+            <p>Alan Peabody</p>
+            <p>@alanpeabody</p>
+          </div>
+          <div class='right'>
+            <p>Odie Routh</p>
+          </div>
+        </div>
+        <p class='clearfix'>&nbsp;</p>
+        <p class='clearfix'>Slides: <a href='http://alanpeabody.com/presentations/vagrant-and-chef'>http://alanpeabody.com/presentations/vagrant-and-chef</a></p>
+      </section>
+
     </div>
   </div>
 
