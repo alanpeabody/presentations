@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+<head>
+  <meta charset='utf-8'>
+  <title>An Elixir for the Web's Future - Presentation by Alan Peabody</title>
+  <link rel='stylesheet' href='../css/reveal.min.css'>
+  <link rel='stylesheet' href='../css/night.css' id='theme'>
+  <link rel='stylesheet' href='../css/zenburn.css'>
+  <link rel='stylesheet' href='../css/customizations.css'>
+</head>
+<body>
+  <div class='reveal'>
+    <div class='slides'>
+      <section>
+        <div class='inline-all'>
+          <p>An</p> <h2>Elixir</h2> <p>for the </p><h2>Web's Future</h2>
+        </div>
+        <p>The web has evolved; has your tech stack?</p>
+      </section>
+
+      <section>
+        <h2>Who am I?</h2>
+        <p>Alan Peabody - Developer @ <a href='http://agilion.com/'>Agilion</a></p>
+        <p>Ruby - JavaScript - Clojure - Elixir</p>
+        <p>Slides: <a href='http://alanpeabody.com/presentations/elixir-for-webs-future/'>http://alanpeabody.com/presentations/elixir-for-webs-future/</a></p>
+
+        <aside class='notes'>
+          Die hard web proponent. I believe in the web and its evolution, it is the ultimate platform. It is ubiquitous, powerful, and elegantly simple. I eat my own dog food; I don’t use many native apps. This presentation was drafted in google docs, diagrams via lucid charts, and is presented with reveal.js. On a typical day I have a web browser and a terminal open, very few native apps. Though I do have some native mobile apps, I try to use sites like forecast.io when ever I can. It is my job to push the web forward.
+        </aside>
+      </section>
+
+      <section>
+        <section>
+          <h2>The Evolution of the Web.</h2>
+          <p>A limited history of how core web technologies have been influenced by misuse and abuse.</p>
+
+          <aside class='notes'>
+            Hacks, workarounds, and abuse has fueled new standards and technologies. By understanding the history of the evolution of the web, we can begin to predict its future.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Early Web (The 90s)</h3>
+          <ul>
+            <li>NEED: Serve (complete) web pages for cross referencing documents.</li>
+            <li>HACK: HTML extracted, adopted, extended by Mosaic/Netscape/IE.</li>
+            <li>REACT: HTML 2,3,4 &amp; HTTP 0.9, 1.0, 1.1 standards</li>
+            <li>TECH: C, Perl, Java, PHP, ASP.</li>
+          </ul>
+
+          <aside class='notes'>
+            NOTES: HTML 4 spec in 1999, HTTP 1.1 1997
+          </aside>
+        </section>
+
+        <section>
+          <h3>Birth of Ajax (Early 2000s)</h3>
+          <ul>
+            <li>NEED: More dynamic sites with only small partial content updates.</li>
+            <li>HACK: Load partial content using frames/iframes and JavaScript.</li>
+            <li>REACT: Browsers implement XMLHTTP(IE) and XMLHttpRequest to solve issue.</li>
+          </ul>
+
+          <aside class='notes'>
+            NOTES: XML is standard data exchange. An abstraction on top of HTTP. Gmail becomes first large scale cross browser deployment of asynchronous XML. Ajax term is coined.
+          </aside>
+
+        </section>
+
+        <section>
+          <h3>Web 2.0 (Mid to Late 2000s)</h3>
+          <ul>
+            <li>NEED: Ajax without all the cross browser code. Sharable web.</li>
+            <li>HACK: jQuery, Prototype, etc - More abstraction on HTTP, cross browser Ajax</li>
+            <li>REACT: W3C XHMLHttpRequest Spe</li>
+            <li>TECH: jQuery, Server Side MVC, JSON, REST</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Real time web (2010+)</h3>
+          <ul>
+            <li>NEED: More collaboration &amp; apps need to push data to client.</li>
+            <li>HACK: Long Polling, flash based solutions, HTTP keep alive, Pipelining.</li>
+            <li>REACT: WebSockets Protocol &amp; API drafted.</li>
+            <li>TECH: Node.js, Socket.io, Pusher</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>JS MV* (2010+) - DELETE SLIDE? WHAT DOES IT ADD?</h3>
+          <ul>
+            <li>NEED: A better way to organize apps.</li>
+            <li>REACT: JavaScript MV* frameworks gain popularity</li>
+            <li>TECH: Backbone.js, Ember.js, Angular.js..</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>The Web Today</h2>
+        </section>
+
+        <section>
+          <h3>Users demand more</h3>
+          <ul>
+            <li>More dynamic interfaces</li>
+            <li>Collaboration</li>
+            <li>Social Sharing</li>
+            <li>Games</li>
+            <li>Chat</li>
+          </ul>
+          <aside class='notes'>
+            NOTES: It is a connected world, and native mobile apps have pushed the bar. The web has reacted and is adapting to these new consumer demands.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Protocols are Old</h3>
+          <ul>
+            <li>HTTP 1.1 is 18 years old.</li>
+            <li>Google introduced SPDY, some adoption.</li>
+            <li>HTTP 2.0 based on SPDY being worked on by IETF.</li>
+            <li>HTTP 2.0 proposal expected End of 2014.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Request/Response Backends Fail</h3>
+          <ul>
+            <li>Todays most popular back end technologies have all been designed around the request/response cycle.</li>
+            <li>Tools that do support persistent connections:</li>
+            <li>Node.js, Ruby EventMachine, Python Twisted, etc</li>
+            <li>Need auxiliary infrastructure (Redis Pub/Sub) to scale beyond one server.</li>
+            <li>Can be hard to reason about - callback soup.</li>
+          </ul>
+          <aside class='notes'>
+            I still love these back ends and think they are great! Request/Response is not going away, only being supplemented.
+          </aside>
+        </section>
+
+        <section>
+          <h3>More connectivity is coming</h3>
+          <ul>
+            <li>Today: Your computer and phone are online</li>
+            <li>Tomorrow: Your car, glasses, watch, fridge and bike will be.</li>
+          </ul>
+        </section>
+      </section>
+
+
+      <section>
+        <section>
+          <h2>Elixir</h2>
+          <aside class='notes'>
+            Elixir has powerful tools that can help utilize these new and upcoming techniques in ways that are powerful, fast, and easy to reason about.
+          </aside>
+        </section>
+
+        <section>
+          <h3>So What is Elixir?</h3>
+          <blockquote>
+            Elixir is a functional meta-programming aware language built on top of the Erlang VM. It is a dynamic language with flexible syntax with macros support that leverages Erlang's abilities to build concurrent, distributed, fault-tolerant applications with hot code upgrades.
+          </blockquote>
+          <p class='attribution'>&mdash; <a href='http://elixir-lang.com'>elixir-lang.com</a></p>
+          <p>Written by Jose Valim</p>
+        </section>
+
+        <section>
+          <h3>Functional</h3>
+          <ul>
+            <li>A programming paradigm </li>
+            <li>Based on The Lambda Calculus</li>
+            <li>Values Immutability over mutable state.*</li>
+            <li>No objects in OOP sense.*</li>
+            <li>Learn more about functional programming @VTFunc</li>
+          </ul>
+          <aside class='notes'>
+            Like OOP or Procedural
+            LC, Treats computation as a mathematical function
+            Basically this means a function given the same arguments always returns the same value.
+            VT Fun, really smart, cool people!
+            * This is actually a lie, Elixir is also a very pure OOP implementation as we will learn in a bit.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Dynamically Typed</h3>
+          <ul>
+            <li>Essentially this just means types are checked at run time instead of compile time.</li>
+            <li>Ruby, PHP, Clojure, Python are other examples of dynamically typed language.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Meta-Programming Aware</h3>
+          <ul>
+            <li>Macro based meta-programming.</li>
+            <li>Great for building DSLs.</li>
+            <li>Most of Elixir is written in Elixir macros.</li>
+            <li>Syntax is Ruby-ish, but is a result of the macro based implementation.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Erlang VM</h3>
+          <ul>
+            <li>Elixir compiles to Erlang bytecode.</li>
+            <li>The Erlang VM has been worked on/used for years.</li>
+            <li>Originally built for Telcom uses by Erikson.</li>
+          </ul>
+          <aside class='notes'>
+            Elixir is to Erlang as Scala is to Java. Elixir is not like CoffeeScript.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Concurrent</h3>
+          <ul>
+            <li>Erlang VM is process based:</li>
+            <li>Process are very lightweight</li>
+            <li>Processes share no state</li>
+            <li>Processes can store their own state</li>
+            <li>Processes send/receive messages via mailboxes with each other.</li>
+            <li>2 Million concurrent connections per server is possible.</li>
+          </ul>
+          <aside class='notes'>
+            This is where it gets really interesting. That is connections, not requests per second. This is also what makes things so easy to reason about. You can send and receive messages at will from any process, either with an immediate return expected, an eventual return, or none at all. People analogy
+          </aside>
+        </section>
+
+        <section>
+          <h3>Distributed</h3>
+          <ul>
+            <li>Multiple Servers (Nodes) can be connected in one cluster.</li>
+            <li>Processes can send/receive messages across node boundaries.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Fault Tolerant</h3>
+          <ul>
+            <li>Let it crash!</li>
+            <li>No single piece of they system dieing should ever bring down the whole.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Hot Code Upgrades</h3>
+          <ul>
+            <li>Deploy a new version with no downtime.</li>
+            <li>2 versions of code in memory, process loop “recurses” to new version.</li>
+          </ul>
+        </section>
+      </section>
+
+
+
+      <section>
+        <h2>Resources</h2>
+        <ul>
+          <li>Elixir Getting Started Guide: <a href='http://elixir-lang.org/getting_started/1.html'>http://elixir-lang.org/getting_started/1.html</a></li>
+          <li>Elixir Documentation: <a href='http://elixir-lang.org/docs/master/'>http://elixir-lang.org/docs/master/</a></li>
+          <li>Elixir on IRC - #elixir-lang on Freenode</li>
+          <li>Learn you some Erlang for Great Good: <a href='http://learnyousomeerlang.com/'>http://learnyousomeerlang.com/</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Thank you!</h2>
+        <p>Alan Peabody</p>
+        <ul>
+          <li>Twitter: <a href='http://twitter.com/alanpeabody'>@alanpeabody</a></li>
+          <li>Github: <a href='http://github.com/alanpeabody'>alanpeabody</a></li>
+          <li>Slides: <a href='http://alanpeabody.com/presentations/introduction-to-elixir'>http://alanpeabody.com/presentations/introduction-to-elixir</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <div class='progress'><span></span></div>
+
+  <script src='../js/highlight.js'></script>
+  <script src='../js/head.min.js'></script>
+  <script src='../js/reveal.min.js'></script>
+  <script src='../js/notes.js'></script>
+  <script>
+    Reveal.initialize({
+
+      width: '90%',
+      height: '100%',
+
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Apply a 3D roll to links on hover
+      rollingLinks: false,
+      // Transition style
+      transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+      theme: 'night',
+
+      dependencies: [
+        // Syntax highlight for <code> elements
+        { src: '../js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+    });
+  </script>
+</body>
+</html>

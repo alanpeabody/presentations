@@ -19,3 +19,7 @@
 .reveal pre code {
   line-height: 1.5em;
 }
+
+.inline-all * {
+  display: inline-block;
+}
