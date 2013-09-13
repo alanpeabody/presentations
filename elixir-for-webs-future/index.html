@@ -15,7 +15,6 @@
         <div class='inline-all'>
           <p>An</p> <h2>Elixir</h2> <p>for the </p><h2>Web's Future</h2>
         </div>
-        <p>The web has evolved; has your tech stack?</p>
       </section>
 
       <section>
@@ -41,99 +40,117 @@
 
         <section>
           <h3>Early Web (The 90s)</h3>
-          <ul>
-            <li>NEED: Serve (complete) web pages for cross referencing documents.</li>
-            <li>HACK: HTML extracted, adopted, extended by Mosaic/Netscape/IE.</li>
-            <li>REACT: HTML 2,3,4 &amp; HTTP 0.9, 1.0, 1.1 standards</li>
-            <li>TECH: C, Perl, Java, PHP, ASP.</li>
-          </ul>
+          <div class='side-by-side'>
+            <div class='tech left'>
+              <img src='images/c.png' alt='C' />
+              <img src='images/perl.jpg' alt='Perl' />
+            </div>
+            <ul class='right'>
+              <li><strong>Need</strong> Serve (complete) web pages for cross referencing documents.</li>
+              <li class='fragment'><strong>Hack</strong> HTML extracted, adopted, extended by Mosaic/Netscape/IE.</li>
+              <li class='fragment'><strong>REACT</strong> HTML 2,3,4 &amp; HTTP 0.9, 1.0, 1.1 standards</li>
+            </ul>
+          </div>
 
           <aside class='notes'>
-            NOTES: HTML 4 spec in 1999, HTTP 1.1 1997
+            HTML 4 spec in 1999, HTTP 1.1 1997
           </aside>
         </section>
 
         <section>
           <h3>Birth of Ajax (Early 2000s)</h3>
-          <ul>
-            <li>NEED: More dynamic sites with only small partial content updates.</li>
-            <li>HACK: Load partial content using frames/iframes and JavaScript.</li>
-            <li>REACT: Browsers implement XMLHTTP(IE) and XMLHttpRequest to solve issue.</li>
-          </ul>
+          <div class='side-by-side'>
+            <div class='tech left'>
+              <img src='images/php.jpg' alt='PHP' />
+              <img src='images/js.png' alt='JavaScript' />
+            </div>
+            <ul class='right'>
+              <li><strong>Need</strong> More dynamic sites with only small partial content updates.</li>
+              <li class='fragment'><strong>Hack</strong> Load partial content using frames/iframes and JavaScript.</li>
+              <li class='fragment'><strong>React</strong> Browsers implement XMLHTTP(IE) and XMLHttpRequest to solve issue.</li>
+            </ul>
+          </div>
 
           <aside class='notes'>
-            NOTES: XML is standard data exchange. An abstraction on top of HTTP. Gmail becomes first large scale cross browser deployment of asynchronous XML. Ajax term is coined.
+            XML is standard data exchange. An abstraction on top of HTTP. Gmail becomes first large scale cross browser deployment of asynchronous XML. Ajax term is coined.
           </aside>
-
         </section>
 
         <section>
           <h3>Web 2.0 (Mid to Late 2000s)</h3>
-          <ul>
-            <li>NEED: Ajax without all the cross browser code. Sharable web.</li>
-            <li>HACK: jQuery, Prototype, etc - More abstraction on HTTP, cross browser Ajax</li>
-            <li>REACT: W3C XHMLHttpRequest Spe</li>
-            <li>TECH: jQuery, Server Side MVC, JSON, REST</li>
-          </ul>
+          <div class='side-by-side'>
+            <div class='tech left'>
+              <img src='images/jquery.png' alt='jQuery' /><br/>
+              <img src='images/rails.png' alt='Rails' />
+            </div>
+            <ul class='right'>
+              <li><strong>Need</strong> Ajax without all the cross browser code. Sharable web.</li>
+              <li class='fragment'><strong>Hack</strong> jQuery, Prototype, etc - More abstraction on HTTP, cross browser Ajax</li>
+              <li class='fragment'><strong>React</strong> W3C XHMLHttpRequest Spec</li>
+            </ul>
+          </div>
+
+          <aside class='notes'>
+            REST has big uptake, birth of the API, JSON becomes king.
+          </aside>
         </section>
 
         <section>
           <h3>Real time web (2010+)</h3>
-          <ul>
-            <li>NEED: More collaboration &amp; apps need to push data to client.</li>
-            <li>HACK: Long Polling, flash based solutions, HTTP keep alive, Pipelining.</li>
-            <li>REACT: WebSockets Protocol &amp; API drafted.</li>
-            <li>TECH: Node.js, Socket.io, Pusher</li>
-          </ul>
-        </section>
-
-        <section>
-          <h3>JS MV* (2010+) - DELETE SLIDE? WHAT DOES IT ADD?</h3>
-          <ul>
-            <li>NEED: A better way to organize apps.</li>
-            <li>REACT: JavaScript MV* frameworks gain popularity</li>
-            <li>TECH: Backbone.js, Ember.js, Angular.js..</li>
-          </ul>
+          <div class='side-by-side'>
+            <div class='tech left'>
+              <img src='images/node.jpg' alt='Node' /><br/>
+            </div>
+            <ul class='right'>
+              <li><strong>Need</strong> More collaboration &amp; apps need to push data to client.</li>
+              <li class='fragment'><strong>Hack</strong> Long Polling, flash based solutions, HTTP keep alive, Pipelining.</li>
+              <li class='fragment'><strong>React</strong> WebSockets Protocol &amp; API drafted.</li>
+            </ul>
+          </div>
+          <aside class='notes'>
+            Today. Polling and long polling. Flash. Hacks abound for push data.
+          </aside>
         </section>
       </section>
 
       <section>
         <section>
-          <h2>The Web Today</h2>
+          <h2>The Web of the Future</h2>
         </section>
 
         <section>
           <h3>Users demand more</h3>
           <ul>
-            <li>More dynamic interfaces</li>
-            <li>Collaboration</li>
-            <li>Social Sharing</li>
-            <li>Games</li>
-            <li>Chat</li>
+            <li><strong>More</strong> dynamic interfaces</li>
+            <li><strong>More</strong> real time collaboration</li>
+            <li><strong>More</strong> social sharing</li>
+            <li><strong>More</strong> games</li>
           </ul>
           <aside class='notes'>
-            NOTES: It is a connected world, and native mobile apps have pushed the bar. The web has reacted and is adapting to these new consumer demands.
+            It is a connected world, and native mobile apps have pushed the bar. The web has reacted and is adapting to these new consumer demands.
           </aside>
         </section>
 
         <section>
           <h3>Protocols are Old</h3>
           <ul>
-            <li>HTTP 1.1 is 18 years old.</li>
-            <li>Google introduced SPDY, some adoption.</li>
-            <li>HTTP 2.0 based on SPDY being worked on by IETF.</li>
-            <li>HTTP 2.0 proposal expected End of 2014.</li>
+            <li>HTTP 1.1 is <strong>18 years old</strong>.</li>
+            <li>HTTP 2.0, based on SPDY, still being worked on by <abbr title='Internet Engineering Task Force'>IETF</abbr>.</li>
+            <li>HTTP 2.0 <strong>proposal</strong> expected End of 2014.</li>
           </ul>
         </section>
 
         <section>
-          <h3>Request/Response Backends Fail</h3>
+          <h3>Request/Response Fails at Real Time</h3>
           <ul>
             <li>Todays most popular back end technologies have all been designed around the request/response cycle.</li>
-            <li>Tools that do support persistent connections:</li>
-            <li>Node.js, Ruby EventMachine, Python Twisted, etc</li>
-            <li>Need auxiliary infrastructure (Redis Pub/Sub) to scale beyond one server.</li>
-            <li>Can be hard to reason about - callback soup.</li>
+            <li class='fragment'>Tools that do support persistent connections:
+              <ul>
+                <li>Node.js, Ruby EventMachine, Python Twisted, etc</li>
+                <li>Need auxiliary infrastructure (Redis Pub/Sub) to scale beyond one server.</li>
+                <li>Can be hard to reason about - callback soup.</li>
+              </ul>
+            </li>
           </ul>
           <aside class='notes'>
             I still love these back ends and think they are great! Request/Response is not going away, only being supplemented.
@@ -143,8 +160,8 @@
         <section>
           <h3>More connectivity is coming</h3>
           <ul>
-            <li>Today: Your computer and phone are online</li>
-            <li>Tomorrow: Your car, glasses, watch, fridge and bike will be.</li>
+            <li><strong>Today</strong>: Your computer and phone are online</li>
+            <li><strong>Tomorrow</strong>: Your car, glasses, watch, fridge and bike will be.</li>
           </ul>
         </section>
       </section>

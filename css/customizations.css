@@ -5,7 +5,7 @@
 .side-by-side .left,
 .side-by-side .right {
   float: left;
-  width: 50%;
+  width: 45%;
 }
 
 .side-by-side {
@@ -22,4 +22,17 @@
 
 .inline-all * {
   display: inline-block;
+}
+
+strong {
+  color: #3E6697;
+}
+
+.side-by-side .left.tech {
+  with: 30%;
+}
+
+.reveal section .tech img {
+  text-align: middle;
+  border: 0;
 }
