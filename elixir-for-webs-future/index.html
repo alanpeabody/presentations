@@ -24,6 +24,7 @@
         <p>Slides: <a href='http://alanpeabody.com/presentations/elixir-for-webs-future/'>http://alanpeabody.com/presentations/elixir-for-webs-future/</a></p>
 
         <aside class='notes'>
+          TODO: Story about myself. Relate.
           Die hard web proponent. I believe in the web and its evolution, it is the ultimate platform. It is ubiquitous, powerful, and elegantly simple. I eat my own dog food; I don’t use many native apps. This presentation was drafted in google docs, diagrams via lucid charts, and is presented with reveal.js. On a typical day I have a web browser and a terminal open, very few native apps. Though I do have some native mobile apps, I try to use sites like forecast.io when ever I can. It is my job to push the web forward.
         </aside>
       </section>
@@ -72,7 +73,11 @@
           </div>
 
           <aside class='notes'>
-            XML is standard data exchange. An abstraction on top of HTTP. Gmail becomes first large scale cross browser deployment of asynchronous XML. Ajax term is coined.
+            <ul>
+              <li>XML is standard data exchange.</li>
+              <li>2004: Gmail becomes first large scale cross browser deployment of asynchronous XML.</li>
+              <li>Ajax term is coined by Jessie James Garret</li>
+            </ul>
           </aside>
         </section>
 
@@ -91,7 +96,11 @@
           </div>
 
           <aside class='notes'>
-            REST has big uptake, birth of the API, JSON becomes king.
+            <ul>
+              <li>REST has big uptake.</li>
+              <li>Coming of age of the HTTP API.</li>
+              <li>JSON becomes king.</li>
+            </ul>
           </aside>
         </section>
 
@@ -108,7 +117,11 @@
             </ul>
           </div>
           <aside class='notes'>
-            Today. Polling and long polling. Flash. Hacks abound for push data.
+            <ul>
+              <li>Today.</li>
+              <li>Polling and long polling.</li>
+              <li>Flash. Hacks abound for push data.</li>
+            </ul>
           </aside>
         </section>
       </section>
@@ -124,10 +137,15 @@
             <li><strong>More</strong> dynamic interfaces</li>
             <li><strong>More</strong> real time collaboration</li>
             <li><strong>More</strong> social sharing</li>
-            <li><strong>More</strong> games</li>
+            <li><strong>More</strong> interaction</li>
           </ul>
           <aside class='notes'>
-            It is a connected world, and native mobile apps have pushed the bar. The web has reacted and is adapting to these new consumer demands.
+            <ul>
+              <li>Google Docs</li>
+              <li>Twitter/Facebook timelines.</li>
+              <li>Chat</li>
+              <li>The bar has been pushed, rest of the web must keep up.</li>
+            </ul>
           </aside>
         </section>
 
@@ -138,6 +156,13 @@
             <li>HTTP 2.0, based on SPDY, still being worked on by <abbr title='Internet Engineering Task Force'>IETF</abbr>.</li>
             <li>HTTP 2.0 <strong>proposal</strong> expected End of 2014.</li>
           </ul>
+          <aside class='notes'>
+            <ul>
+              <li>HTTP 1.1 has been hugely successfully.</li>
+              <li>SPDY - no adoption.</li>
+              <li>HTTP 2.0 not around for a while.</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
@@ -153,7 +178,10 @@
             </li>
           </ul>
           <aside class='notes'>
-            I still love these back ends and think they are great! Request/Response is not going away, only being supplemented.
+            <ul>
+              <li>I still love these back ends and think they are great!</li>
+              <li>Request/Response is not going away, only being supplemented.</li>
+            </ul>
           </aside>
         </section>
 
@@ -163,9 +191,13 @@
             <li><strong>Today</strong>: Your computer and phone are online</li>
             <li><strong>Tomorrow</strong>: Your car, glasses, watch, fridge and bike will be.</li>
           </ul>
+          <aside class='notes'>
+            <ul>
+              <li>TODO: Story/example</li>
+            </ul>
+          </aside>
         </section>
       </section>
-
 
       <section>
         <section>
@@ -189,16 +221,18 @@
           <ul>
             <li>A programming paradigm </li>
             <li>Based on The Lambda Calculus</li>
-            <li>Values Immutability over mutable state.*</li>
-            <li>No objects in OOP sense.*</li>
-            <li>Learn more about functional programming @VTFunc</li>
+            <li>Values Immutability over mutable state*</li>
+            <li>No objects*</li>
+            <li>Learn more about functional programming <a href='https://twitter.com/vtfun'>@VTFun</a></li>
           </ul>
           <aside class='notes'>
-            Like OOP or Procedural
-            LC, Treats computation as a mathematical function
-            Basically this means a function given the same arguments always returns the same value.
-            VT Fun, really smart, cool people!
-            * This is actually a lie, Elixir is also a very pure OOP implementation as we will learn in a bit.
+            <ul>
+              <li>Like OOP or Procedural</li>
+              <li>LC, Treats computation as a mathematical function</li>
+              <li>Basically this means a function given the same arguments always returns the same value.</li>
+              <li>VT Fun, really smart, cool people!</li>
+              <li>* This is actually a lie, Elixir is also a very pure OOP implementation as we will learn in a bit.</li>
+            </ul>
           </aside>
         </section>
 
@@ -227,23 +261,39 @@
             <li>The Erlang VM has been worked on/used for years.</li>
             <li>Originally built for Telcom uses by Erikson.</li>
           </ul>
+          <p></p>
+          <blockquote><p>The Erlang Virtual Machine is our greatest strength.</p></blockquote>
+          <p class='attribution'>&mdash; Jose Valim</p>
           <aside class='notes'>
-            Elixir is to Erlang as Scala is to Java. Elixir is not like CoffeeScript.
+            <ul>
+              <li>Elixir is to Erlang as Scala is to Java. Elixir is not like CoffeeScript.</li>
+              <li>Erlang been around since 80s, gaining popularity since around 2005.</li>
+            </ul>
           </aside>
         </section>
 
         <section>
           <h3>Concurrent</h3>
-          <ul>
-            <li>Erlang VM is process based:</li>
-            <li>Process are very lightweight</li>
-            <li>Processes share no state</li>
-            <li>Processes can store their own state</li>
-            <li>Processes send/receive messages via mailboxes with each other.</li>
-            <li>2 Million concurrent connections per server is possible.</li>
-          </ul>
+          <div class='side-by-side'>
+            <div class='tech left'>
+              <img src='images/erlang_processes.png' alt='Erlang Processes' />
+            </div>
+            <ul class='right'>
+              <li>Erlang VM is process based:
+                <ul>
+                  <li>Process are very lightweight</li>
+                  <li>Processes share no state</li>
+                  <li>Processes can store their own state</li>
+                  <li>Processes send/receive messages via mailboxes with each other.</li>
+                </ul>
+              </li>
+              <li>2 Million concurrent connections per server is possible.</li>
+            </ul>
+          </div>
           <aside class='notes'>
-            This is where it gets really interesting. That is connections, not requests per second. This is also what makes things so easy to reason about. You can send and receive messages at will from any process, either with an immediate return expected, an eventual return, or none at all. People analogy
+            <ul>
+              <li>People analogy.</li>
+            </ul>
           </aside>
         </section>
 
@@ -253,13 +303,16 @@
             <li>Multiple Servers (Nodes) can be connected in one cluster.</li>
             <li>Processes can send/receive messages across node boundaries.</li>
           </ul>
+          <aside class='notes'>
+            <p>Demo later if time.</p>
+          </aside>
         </section>
 
         <section>
           <h3>Fault Tolerant</h3>
           <ul>
             <li>Let it crash!</li>
-            <li>No single piece of they system dieing should ever bring down the whole.</li>
+            <li>No single piece of they system dying should ever bring down the whole.</li>
           </ul>
         </section>
 
@@ -270,9 +323,94 @@
             <li>2 versions of code in memory, process loop “recurses” to new version.</li>
           </ul>
         </section>
+
       </section>
 
+      <section>
+        <section>
+          <h2>Elixir and the Web</h2>
+        </section>
 
+        <section>
+          <h3>Cowboy</h3>
+          <ul>
+            <li>Each connection has its own process</li>
+            <li>Uses HTTP1.1 w/ Keepalive by default</li>
+            <li>Can “upgrade” connection to WebSockets or REST</li>
+          </ul>
+
+          <aside class='notes'>
+            <ul>
+              <li>Default, each process is state with session</li>
+              <li>REST, removes session/process state</li>
+              <li>Websockets, persistant process</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Websockets</h3>
+          <ul>
+            <li>Websockets pass <strong>messages</strong></li>
+            <li>Elixir processes pass <strong>messages</strong></li>
+            <li>Passing messages from Elixir to JS to Elixir is easy and clean</li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>The browser is just another process</li>
+              <li>Modeling and thinking about messages is really easy!</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Demo</h3>
+          <ul>
+            <li>TODO: Figure out demo link for wifi free zone</li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Quick Demo</li>
+              <li>Much cooler with wifi available.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>How it works - Connecting</h3>
+          <img src='images/el_chat_connect.png' alt='Diagram of El Chat Connection' />
+        </section>
+
+        <section>
+          <h3>How it works - Sending a Message</h3>
+          <img src='images/el_chat_message.png' alt='Diagram of El Chat Message Sending' />
+        </section>
+
+        <section>
+          <h3>But what about <strong>Web Scale?</strong></h3>
+          <aside class='notes'>
+            <p>I know, you are asking but what if there are so many users in the chat room that we have to scale!?</p>
+            <p>I mean, this chat room is taking off. Millions of users!</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3><strong>ROFL Scale</strong> - Sending a Message</h3>
+          <img src='images/el_chat_message_distributed.png' alt='Diagram of El Chat Message Sending Distributed' />
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Recap</h2>
+        <ol>
+          <li>Real Time communication is here to stay.</li>
+          <li>Web Sockets are coming.</li>
+          <li>Elixir makes Web Sockets easy.</li>
+        </ol>
+        <aside class='notes'>
+        </aside>
+      </section>
 
       <section>
         <h2>Resources</h2>
@@ -291,6 +429,7 @@
           <li>Twitter: <a href='http://twitter.com/alanpeabody'>@alanpeabody</a></li>
           <li>Github: <a href='http://github.com/alanpeabody'>alanpeabody</a></li>
           <li>Slides: <a href='http://alanpeabody.com/presentations/introduction-to-elixir'>http://alanpeabody.com/presentations/introduction-to-elixir</a></li>
+          <li>ElChat Code: <a href='http://github.com/alanpeabody/el_chat'>http://github.com/alanpeabody/el_chat</a></li>
         </ul>
       </section>
 
@@ -330,7 +469,7 @@
       dependencies: [
         // Syntax highlight for <code> elements
         { src: '../js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-        { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
       ]
     });
   </script>
