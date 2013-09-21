@@ -34,5 +34,8 @@ strong {
 
 .reveal section .tech img {
   text-align: middle;
+}
+
+.reveal section img {
   border: 0;
 }
