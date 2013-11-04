@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+<head>
+  <meta charset='utf-8'>
+  <title>NoSQLvember - Cassandra</title>
+  <link rel='stylesheet' href='../css/reveal.min.css'>
+  <link rel='stylesheet' href='../css/night.css' id='theme'>
+  <link rel='stylesheet' href='../css/zenburn.css'>
+  <link rel='stylesheet' href='../css/customizations.css'>
+</head>
+<body>
+  <div class='reveal'>
+    <div class='slides'>
+      <section>
+        <div class='inline-all'>
+          <h2>NoSQL</h2> <p>vember</p>
+        </div>
+        <h3>Cassandra</h3>
+      </section>
+
+      <section>
+        <h2>Who am I?</h2>
+        <p>Alan Peabody - Developer @ <a href='http://agilion.com/'>Agilion</a></p>
+        <p>Ruby - JavaScript - Clojure</p>
+        <p>Slides: <a href='http://alanpeabody.com/presentations/nosqlvember-cassandra/'>http://alanpeabody.com/presentations/nosqlvember-cassandra/</a></p>
+      </section>
+
+      <section>
+        <section>
+          <h2>Introduction to NoSQL</h2>
+
+          <aside class='notes'>
+            <ul>
+              <li></li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>What NoSQL <strong>Is</strong></h3>
+          <ul>
+            <li>Really could be Non-relational</li>
+            <li class='fragment'></li>
+            <li class='fragment'></li>
+          </ul>
+
+          <aside class='notes'>
+            <li></li>
+          </aside>
+        </section>
+
+        <section>
+          <h3>What NoSQL <strong>Isn't</strong></h3>
+          <ul>
+            <li>Not a replacement for relational databases</li>
+            <li class='fragment'></li>
+            <li class='fragment'></li>
+          </ul>
+
+          <aside class='notes'>
+            <li></li>
+          </aside>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Cassandra</h2>
+
+          <aside class='notes'>
+            <ul>
+              <li></li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>What is Cassandra?</h3>
+          <ul>
+            <li>Open Source</li>
+            <li class='fragment'>Column Oriented</li>
+            <li class='fragment'>Distributed</li>
+            <li class='fragment'>AP</li>
+            <li class='fragment'>Linear Scaling</li>
+          </ul>
+
+          <aside class='notes'>
+            <li></li>
+          </aside>
+        </section>
+
+        <section>
+          <h3>What it is good for?</h3>
+          <ul>
+            <li></li>
+            <li class='fragment'></li>
+            <li class='fragment'></li>
+          </ul>
+
+          <aside class='notes'>
+            <li></li>
+          </aside>
+        </section>
+
+        <section>
+          <h3>What <strong>isn't</strong> it good for?</h3>
+          <ul>
+            <li></li>
+            <li class='fragment'></li>
+            <li class='fragment'></li>
+          </ul>
+
+          <aside class='notes'>
+            <li></li>
+          </aside>
+        </section>
+      </section>
+
+      <section>
+        <h2>Resources</h2>
+        <ul>
+          <li></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Thank you!</h2>
+        <p>Alan Peabody</p>
+        <ul>
+          <li>Twitter: <a href='http://twitter.com/alanpeabody'>@alanpeabody</a></li>
+          <li>Github: <a href='http://github.com/alanpeabody'>alanpeabody</a></li>
+          <li>Slides: <a href='http://alanpeabody.com/presentations/nosqlvember-cassandra/'>http://alanpeabody.com/presentations/nosqlvember-cassandra/</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <div class='progress'><span></span></div>
+
+  <script src='../js/highlight.js'></script>
+  <script src='../js/head.min.js'></script>
+  <script src='../js/reveal.min.js'></script>
+  <script src='../js/notes.js'></script>
+  <script>
+    Reveal.initialize({
+
+      width: '90%',
+      height: '100%',
+
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Apply a 3D roll to links on hover
+      rollingLinks: false,
+      // Transition style
+      transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+      theme: 'night',
+
+      dependencies: [
+        // Syntax highlight for <code> elements
+        { src: '../js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+    });
+  </script>
+</body>
+</html>
