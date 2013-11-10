@@ -101,47 +101,75 @@
           <h3>What is Cassandra?</h3>
           <ul>
             <li>Open Source</li>
-            <li class='fragment'>Column Oriented</li>
-            <li class='fragment'>Distributed</li>
-            <li class='fragment'>AP</li>
+            <li class='fragment'>Best of Big Table and Dynamo</li>
+            <li class='fragment'>Columns &amp; Column Families (cf/row-key/column =&gt; value)</li>
+            <li class='fragment'>AP - w/ Tunable CAP</li>
             <li class='fragment'>Linear Scaling</li>
           </ul>
 
           <aside class='notes'>
-            <li></li>
+            <ul>
+              <li>Apache Foundation Project</li>
+              <li>Data structure of Google's Big Table - Think distributed hash table.</li>
+              <li>Billions of rows, millions of columns</li>
+              <li>AP (Eventual Consistency) - Expect failure, it is the norm.</li>
+              <li>Tune # of replicas, and then each request can </li>
+              <li>Linear scaling, single qeury performance takes the same on 6 nodes or 100 nodes. Throughput goes up with # of nodes.</li>
+            </ul>
           </aside>
         </section>
 
         <section>
           <h3>What it is good for?</h3>
           <ul>
-            <li></li>
-            <li class='fragment'></li>
-            <li class='fragment'></li>
+            <li>Write heavy workloads</li>
+            <li class='fragment'>Sparse Data</li>
+            <li class='fragment'>Data Analysis</li>
+            <li class='fragment'>Log Analysis</li>
+            <li class='fragment'>Time series data</li>
+            <li class='fragment'>CQL - Makes working with data familiar</li>
           </ul>
 
           <aside class='notes'>
-            <li></li>
+            <ul>
+              <li>Cassandra handles writes incredibly well. Any node can accept any value for writing, and ensure it is saved (to the required number of replicas).</li>
+              <li>Sparse data (each row may have different columns).</li>
+              <li>The efficiency of wide row (many columns) make cassandra great for storing values over time.</li>
+              <li>CQL lets you write very SQL like queries.</li>
+            </ul>
           </aside>
         </section>
 
         <section>
           <h3>What <strong>isn't</strong> it good for?</h3>
           <ul>
-            <li></li>
-            <li class='fragment'></li>
-            <li class='fragment'></li>
+            <li>Read heavy workloads</li>
+            <li class='fragment'>Joins/relational data</li>
+            <li class='fragment'>Queries comparing values (besides equality)</li>
           </ul>
 
           <aside class='notes'>
-            <li></li>
+            <ul>
+              <li>For read heavy workloads, HBase is CP with faster read queries.</li>
+              <li>Complex queries are difficult in cassandra. If your access patterns require a lot of conditionals, look elsewhere.</li>
+            </ul>
           </aside>
+        </section>
+
+        <section>
+          <h3>Cassandra Takeaways</h3>
+          <ul>
+            <li>Giant distributed hash table with tunable consistency.</li>
+            <li>Great for write heavy, high availability analytical application.</li>
+            <li>Bad for complex queries or read heavy workloads.</li>
+          </ul>
         </section>
       </section>
 
       <section>
         <h2>Resources</h2>
         <ul>
+          <li>Wide NoSQL comparison - <a href='http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis'>http://kkovacs.eu/cassandra-vs-mongodb-vs-couchdb-vs-redis</a></li>
           <li></li>
         </ul>
       </section>
