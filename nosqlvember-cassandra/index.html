@@ -40,12 +40,22 @@
           <h3>What NoSQL <strong>Is</strong></h3>
           <ul>
             <li>Really could be Non-relational</li>
-            <li class='fragment'></li>
-            <li class='fragment'></li>
+            <li class='fragment'>Optimized for specific use cases
+              <ul>
+                <li>Caching</li>
+                <li>High Availability</li>
+                <li>Document Storage</li>
+                <li>Searching</li>
+                <li>Graphs</li>
+              </ul>
+            </li>
+            <li class='fragment'>All about access patterns</li>
           </ul>
 
           <aside class='notes'>
-            <li></li>
+            <li>NoSQL is a bit of a mis-nomer. NoRDBMS would be a better name.</li>
+            <li>Typically a NoSQL DB is optimized for a specific use case or access pattern.</li>
+            <li>You don't model your data in NoSQL DBs, you analyze your data access patterns and then see how you can optimize them with a NoSQL DB.</li>
           </aside>
         </section>
 
@@ -53,13 +63,26 @@
           <h3>What NoSQL <strong>Isn't</strong></h3>
           <ul>
             <li>Not a replacement for relational databases</li>
-            <li class='fragment'></li>
-            <li class='fragment'></li>
+            <li class='fragment'>A cure for all your scaling problems</li>
+            <li class='fragment'>A savings measure over a RDBMS</li>
           </ul>
 
           <aside class='notes'>
-            <li></li>
+            <li>Don't throw out your RDBMS tool of choice. It is still a very powerful tool.</li>
+            <li>Replacing your RDBMS with a NoSQL will not magically make your app "Web Scale". Take your pain points and analyze your options.</li>
+            <li>NoSQL databases come with a hidden cost: the knowledge and expertise needed to install and manage production environments.</li>
           </aside>
+        </section>
+
+        <section>
+          <h3>NoSQL Takeaways</h3>
+          <ul>
+            <li>Lots of options</li>
+            <li>Choose the right tool for the job</li>
+            <li>It is all about access patterns, not "what is cool"</li>
+            <li>Put another way: Model your queries, not your data.</li>
+            <li>VT has lots of great people knowledgeable on NoSQL!</li>
+          </ul>
         </section>
       </section>
 
