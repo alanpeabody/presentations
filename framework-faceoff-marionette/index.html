@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+<head>
+  <meta charset='utf-8'>
+  <title>Framework Faceoff - Marionette</title>
+  <link rel='stylesheet' href='../css/reveal.min.css'>
+  <link rel='stylesheet' href='../css/night.css' id='theme'>
+  <link rel='stylesheet' href='../css/zenburn.css'>
+  <link rel='stylesheet' href='../css/customizations.css'>
+</head>
+<body>
+  <div class='reveal'>
+    <div class='slides'>
+      <section>
+        <h2>Framework Faceoff</h2>
+        <img src='./marionette_logo.png' title='Marionette.js' class='plain'/>
+      </section>
+
+      <section>
+        <h2>Who am I?</h2>
+        <p>Alan Peabody - Developer @ <a href='http://agilion.com/'>Agilion</a></p>
+        <p>Slides: <a href='http://alanpeabody.com/presentations/framework-faceoff-marionette/'>http://alanpeabody.com/presentations/framework-faceoff-marionette/</a></p>
+        <aside class='notes'>
+          <ul>
+            <li>First, I am not a designer, just a developer who like the full stack and is always learning something new.</li>
+            <li>Influenced by my History with Ruby/Rails and functional programming.</li>
+            <li>Have built and working on large Backbone and Ember apps.</li>
+            <li>Unfortunately, I have not yet had the opportunity to build a large Angular, React, etc app. So I can't comment on them terribly well.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section>
+        <h2>Should you use Marionette?</h2>
+      </section>
+
+      <section>
+        <h2>What is Backbone.Marionette?</h2>
+
+        <blockquote>
+          Backbone.Marionette is a <strong>composite application</strong> library for <strong>Backbone.js</strong> that aims to simplify the construction of <strong>large scale</strong> JavaScript applications.
+        </blockquote>
+        <p class='attribution'>&mdash; <a href='http://marionettejs.com'>marionettejs.com</a></p>
+        <p class='small'><strong>Emphasis mine</strong></p>
+
+        <aside class='notes'>
+          <ul>
+          </ul>
+        </aside>
+      </section>
+
+      <section>
+        <section>
+          <h2>Built on Backbone.js</h2>
+          <aside class='notes'>
+            <p>So its a library for Backbone.js, what does that mean?</p>
+          </aside>
+
+        </section>
+
+        <section>
+          <h3>Backbone is <strong>great!</strong></h3>
+          <p>Backbone.js is small, flexible, and un-opinionated.</p>
+          <ul>
+            <li>No surprises.</li>
+            <li>Built on the awesome Underscore library.</li>
+            <li>Powerful models and collections.</li>
+            <li>Simple routing with push state support.</li>
+            <li>Easy to understand view and template system.</li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>At under 1500 lines of code (with commets) Backbone is super easy to learn and use.</li>
+              <li>The _ way carries though everywhere here. No injection of Object or any unexpected behavior.</li>
+              <li>Models that work with any backend, and tons of plugins.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Backbone is <strong>a pain</strong></h3>
+          <p>Backbone.js is small, flexible, and un-opinionated.</p>
+          <ul>
+            <li>Decide on (and implement consistently) your own best practices.</li>
+            <li>Write your own rendering code. A lot.</li>
+            <li>Handle switching between views.</li>
+            <li>Handle view clean up.</li>
+            <li>Handle event un-binding.</li>
+            <li>Organize your app in some sane way.</li>
+          </ul>
+          <aside class='notes'>
+            <p>Frankly, I'm just not that good of a developer. I have an API to build, deadlines to hit, clients to please, servers to maintain. Not to mention co-workers to troll, a dog to walk and cats screaming for something! Trusting someone else to handle these common details allows me to focus my development effort 100% on the problem I am trying to solve. Both Angular and Ember handle these things for you, and so does Marionette.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h3><strong>Backbone</strong>.Marionette</h3>
+          <ul>
+            <li>Views &amp; View Managers (Layouts, Regions)</li>
+            <li>Component based Modules</li>
+            <li>Eventing Tools</li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Marionette is a layer on top of Backbone.</li>
+              <li>These additions address many of the issues I have with plain Backbone.</li>
+            </ul>
+          </aside>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Marionette Views &amp View Management</h2>
+        </section>
+
+        <section>
+          <h3>Marionette.View</h3>
+          <ul>
+            <li>Inherits from backbone.view.</li>
+            <li>Implements a standard API for "closing" a view.</li>
+            <li>Is prototype of every other Marionette view type.</li>
+            <li>Has a template property, which can be a selector or function.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>ItemView</strong></h3>
+          <ul>
+            <li>Renders one model.</li>
+            <li>Used for forms, display, list.</li>
+            <li>Can be bound to render on model events such as change.</li>
+            <li>Has one template</li>
+          </ul>
+          <pre><code class='html'>
+            &lt;div id='app'&gt;&lt;/div&gt;
+            &lt;script id='frame-view' type='text/html'&gt;
+              &lt;h2&gt;&lt;%= name %&gt;&lt;/h2&gt;
+              &lt;p&gt;&lt;%= tagline %&gt;&lt;/p&gt;
+            &lt;/script&gt;
+          </code></pre>
+          <pre><code class='javascript'>
+            var Framework = Backbone.Model.extend({});
+            var FrameWorkView = Backbone.Marionette.ItemView.extend({
+              template: '#frame-view',
+              modelEvents: { 'change' : 'render' }
+            });
+            var framework = new Framework({name: 'marionette.js'});
+            var view = new FrameWorkView({model: framework});
+            $('#app').html(view.render().$el);
+            framework.set('description', 'Make your Backbone applications Dance!');
+            view.close();
+          </pre></code>
+          <p class='small'><a href='https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md'>https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md</a>
+          <aside class='notes'>
+            <ul>
+              <li>ItemView extended from Backbone.View, has same functionality + more.</li>
+              <li>Provides events/hooks on rendering/closing the view.</li>
+              <li>Provides easy way to add custom functionality based on model events.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>CompositeView</strong></h3>
+          <ul>
+          </ul>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+
+        <section>
+          <h3>Marionette.<strong>Layout</strong></h3>
+          <ul>
+          </ul>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Views Recap</h3>
+        </section>
+
+      </section>
+
+      <section>
+        <section>
+          <h2>Composite Applications with Marionette</h2>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Backbone.<strong>Wreqr</strong></h3>
+          <ul>
+            <li>RequestResponse</li>
+            <li>Event Aggregator</li>
+            <li>Commands</li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>Application</strong></h3>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.Application.<strong>Module</strong></h3>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Modules Recap</h3>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Managing <strong>Large</strong> Applications</h2>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>One Application</h3>
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Model Modules</h3>
+
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>One Module Per "Section"</h3>
+
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>One Sub-module per "Screen"</h3>
+
+          <aside class='notes'>
+            <ul>
+              <li>This should also loosely correspond to url routes.</li>
+              <li>Renders a layout if many components.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>One Sub-Sub-module per "Component"</h3>
+
+          <aside class='notes'>
+            <ul>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Modules Routing</h3>
+        </section>
+
+     </section>
+
+      <section>
+        <h2>Marionette <strong>VS</strong> The Competition</h2>
+        <ul>
+          <li>Super explicit, super simple</li>
+          <li>Focused on OO concepts such as composition and de-coupling.</li>
+          <li>Manual binding of data and events.</li>
+          <li>Must manage routes and state explicity.</li>
+          <li>Much less magic then Ember.js</li>
+          <li>More model focused then DOM specific frameworks like React.</li>
+          <li>More code required then Ember or Angular, but much less then Backbone</li>
+        </ul>
+        <aside class='notes'>
+          <ul>
+            <li></li>
+          </ul>
+        </aside>
+      </section>
+
+      <section>
+        <h2>Should you use Marionette?</h2>
+        <p><strong>Maybe.</strong></p>
+      </section>
+
+      <section>
+        <h2>Resources</h2>
+        <ul>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Thank you!</h2>
+        <p>Alan Peabody</p>
+        <ul>
+          <li>Twitter: <a href='http://twitter.com/alanpeabody'>@alanpeabody</a></li>
+          <li>Github: <a href='http://github.com/alanpeabody'>alanpeabody</a></li>
+          <li>Slides: <a href='http://alanpeabody.com/presentations/framework-faceoff-marionette/'>http://alanpeabody.com/presentations/framework-faceoff-marionette/</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <div class='progress'><span></span></div>
+
+  <script src='../js/highlight.js'></script>
+  <script src='../js/head.min.js'></script>
+  <script src='../js/reveal.min.js'></script>
+  <script src='../js/notes.js'></script>
+  <script>
+    Reveal.initialize({
+
+      width: '90%',
+      height: '100%',
+
+      // Display controls in the bottom right corner
+      controls: true,
+      // Display a presentation progress bar
+      progress: true,
+      // Push each slide change to the browser history
+      history: true,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Apply a 3D roll to links on hover
+      rollingLinks: false,
+      // Transition style
+      transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+      theme: 'night',
+
+      dependencies: [
+        // Syntax highlight for <code> elements
+        { src: '../js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+    });
+  </script>
+</body>
+</html>
