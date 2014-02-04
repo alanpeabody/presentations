@@ -115,41 +115,44 @@
         </section>
 
         <section>
-          <h3>Marionette.View</h3>
+          <h3>Marionette.<strong>View</strong></h3>
           <ul>
-            <li>Inherits from backbone.view.</li>
+            <li>Inherits from Backbone.view.</li>
+            <li>Adds standard templating and rendering.</li>
             <li>Implements a standard API for "closing" a view.</li>
             <li>Is prototype of every other Marionette view type.</li>
-            <li>Has a template property, which can be a selector or function.</li>
           </ul>
+          <aside class='notes'>
+            <ul>
+              <li>ItemView extended from Backbone.View, has same functionality + more.</li>
+              <li>Template can be a selector to dom or function. Compatible with Handlebars and Mustache, as well as the default Underscore.</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
           <h3>Marionette.<strong>ItemView</strong></h3>
           <ul>
             <li>Renders one model.</li>
-            <li>Used for forms, display, list.</li>
+            <li>Used for forms, display, listing items.</li>
             <li>Can be bound to render on model events such as change.</li>
-            <li>Has one template</li>
           </ul>
           <pre><code class='html'>
             &lt;div id='app'&gt;&lt;/div&gt;
-            &lt;script id='frame-view' type='text/html'&gt;
+            &lt;script id='item-view' type='text/html'&gt;
               &lt;h2&gt;&lt;%= name %&gt;&lt;/h2&gt;
               &lt;p&gt;&lt;%= tagline %&gt;&lt;/p&gt;
             &lt;/script&gt;
           </code></pre>
           <pre><code class='javascript'>
             var Framework = Backbone.Model.extend({});
-            var FrameWorkView = Backbone.Marionette.ItemView.extend({
-              template: '#frame-view',
+            var FrameworkView = Backbone.Marionette.ItemView.extend({
+              template: '#item-view',
               modelEvents: { 'change' : 'render' }
             });
             var framework = new Framework({name: 'marionette.js'});
-            var view = new FrameWorkView({model: framework});
+            var view = new FrameworkView({model: framework});
             $('#app').html(view.render().$el);
-            framework.set('description', 'Make your Backbone applications Dance!');
-            view.close();
           </pre></code>
           <p class='small'><a href='https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md'>https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md</a>
           <aside class='notes'>
@@ -164,9 +167,31 @@
         <section>
           <h3>Marionette.<strong>CompositeView</strong></h3>
           <ul>
+            <li>Renders an optional Model and a Collection, renders each Collection item in an Item view.</li>
+            <li>Great for Model + Related Collection and Leaf view structures.</li>
+            <li>Automatically keeps dom in sync with Collection.</li>
           </ul>
+          <pre><code class='html'>
+            &lt;script id='frames-view' type='text/html'&gt;
+              &lt;h1&gt;Frameworks:&lt;/h1&gt;
+              &lt;div class='frameworks'&gt;&lt;/div&gt;
+            &lt;/script&gt;
+          </code></pre>
+          <pre><code class='javascript'>
+            var Frameworks = Backbone.Collection.extend({model: Framework});
+            var FrameworksView = Backbone.Marionette.CompositeView.extend({
+              template: '#frames-view',
+              itemView: FrameworkView,
+              itemViewContainer: '.frameworks'
+            });
+            var frameworks = new Frameworks([framework]);
+            var compView = new FrameworksView({collection: frameworks});
+            $('#app').html(compView.render().$el);
+          </pre></code>
           <aside class='notes'>
             <ul>
+              <li>I am skipping Collection view, which is useful but I almost always use a Composite view instead.</li>
+              <li>Composite views are incredibly helpful, and can dry up backbone code significantly.</li>
             </ul>
           </aside>
         </section>
@@ -175,9 +200,34 @@
         <section>
           <h3>Marionette.<strong>Layout</strong></h3>
           <ul>
+            <li>Manages opening and closing of child views.</li>
+            <li>Has an instance of Marionette.<strong>RegionManager</strong> built it.</li>
           </ul>
+          <pre><code class='html'>
+            &lt;script id='frames-layout' type='text/html'&gt;
+              &lt;div id='menu'&gt;&lt;/div&gt;
+              &lt;div id='main'&gt;&lt;/div&gt;
+            &lt;/script&gt;
+          </code></pre>
+          <pre><code class='javascript'>
+            var FrameworksLayout = Backbone.Marionette.layer.extend({
+              template: '#frames-layout',
+              regions: {
+                main: '#main',
+                menu: '#menu'
+              }
+            });
+
+            var layout = new FrameworksLayout();
+            $('#app').html(layout.render().$el);
+
+            layout.main.show(compView);
+            layout.main.close();
+          </code></pre>
           <aside class='notes'>
             <ul>
+              <li>This is a common pattern and problem in JS apps, and these layouts are a very elegant solution.</li>
+              <li>These tie in particularly well to the modules piece</li>
             </ul>
           </aside>
         </section>
@@ -295,13 +345,13 @@
       <section>
         <h2>Marionette <strong>VS</strong> The Competition</h2>
         <ul>
-          <li>Super explicit, super simple</li>
+          <li>Super explicit, super simple.</li>
           <li>Focused on OO concepts such as composition and de-coupling.</li>
           <li>Manual binding of data and events.</li>
           <li>Must manage routes and state explicity.</li>
-          <li>Much less magic then Ember.js</li>
-          <li>More model focused then DOM specific frameworks like React.</li>
-          <li>More code required then Ember or Angular, but much less then Backbone</li>
+          <li>Much more straight forward than Ember.js.</li>
+          <li>More model focused than DOM specific frameworks like React.</li>
+          <li>More code required than Ember or Angular, but much less then Backbone.</li>
         </ul>
         <aside class='notes'>
           <ul>
