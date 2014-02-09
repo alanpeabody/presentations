@@ -24,7 +24,7 @@
           <ul>
             <li>First, I am not a designer, just a developer who like the full stack and is always learning something new.</li>
             <li>Influenced by my History with Ruby/Rails and functional programming.</li>
-            <li>Have built and working on large Backbone and Ember apps.</li>
+            <li>Have built and worked on large Backbone and Ember apps.</li>
             <li>Unfortunately, I have not yet had the opportunity to build a large Angular, React, etc app. So I can't comment on them terribly well.</li>
           </ul>
         </aside>
@@ -32,6 +32,12 @@
 
       <section>
         <h2>Should you use Marionette?</h2>
+        <aside class='notes'>
+          <ul>
+            <li>So you are all here to learn about Ember and Angular.</li>
+            <li>I am here to convince you to consider Marionette for your next project.</li>
+          </ul>
+        </aside>
       </section>
 
       <section>
@@ -55,7 +61,44 @@
           <aside class='notes'>
             <p>So its a library for Backbone.js, what does that mean?</p>
           </aside>
+        </section>
 
+        <section>
+          <h3>What is Backbone.js?</h3>
+          <ul>
+            <li><strong>M</strong>odels (and Collections)</li>
+            <li><strong>V</strong>iew (and Template)</li>
+            <li><strong>R</strong>outer</li>
+            <li>17,000+ Stars on Github</li>
+            <li>6.4kb over wire</li>
+            <li><a href='http://backbonejs.org/docs/backbone.html'>Tiny, read-able, well documented source</a></li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Models responsible for working with persistence APIs</li>
+              <li>Views handle interaction between Model/Collection and Template(Dom)</li>
+              <li>Templates are the DOM structure of the View</li>
+              <li>Routers handle proper screens are displayed based on url state</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Backbone is <strong>event</strong> based</h3>
+          <ul>
+            <li>Models trigger Events</li>
+            <li>DOM interactions trigger Events</li>
+            <li>View manages events</li>
+            <li><strong>No automatic bindings</strong></li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Events are core to Backbone (and Marionette).</li>
+              <li>Model field updated, model saved.</li>
+              <li>User clicks something, fills form field.</li>
+              <li>Unlike Ember and Angular you must render/update DOM explicitly.</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
@@ -64,15 +107,13 @@
           <ul>
             <li>No surprises.</li>
             <li>Built on the awesome Underscore library.</li>
-            <li>Powerful models and collections.</li>
-            <li>Simple routing with push state support.</li>
-            <li>Easy to understand view and template system.</li>
+            <li>Great 3rd party libraries.</li>
           </ul>
           <aside class='notes'>
             <ul>
               <li>At under 1500 lines of code (with commets) Backbone is super easy to learn and use.</li>
               <li>The _ way carries though everywhere here. No injection of Object or any unexpected behavior.</li>
-              <li>Models that work with any backend, and tons of plugins.</li>
+              <li>Tons of plugins, from Frameworks like Marionette to binding systems like Backbone.StickIt.</li>
             </ul>
           </aside>
         </section>
@@ -92,21 +133,23 @@
             <p>Frankly, I'm just not that good of a developer. I have an API to build, deadlines to hit, clients to please, servers to maintain. Not to mention co-workers to troll, a dog to walk and cats screaming for something! Trusting someone else to handle these common details allows me to focus my development effort 100% on the problem I am trying to solve. Both Angular and Ember handle these things for you, and so does Marionette.</p>
           </aside>
         </section>
+      </section>
 
-        <section>
-          <h3><strong>Backbone</strong>.Marionette</h3>
+      <section>
+        <h2><strong>Backbone</strong>.Marionette</h2>
+        <ul>
+          <li>Views &amp; View Managers (Layouts, Regions)</li>
+          <li>Component based Modules</li>
+          <li>Eventing Tools</li>
+        </ul>
+        <aside class='notes'>
           <ul>
-            <li>Views &amp; View Managers (Layouts, Regions)</li>
-            <li>Component based Modules</li>
-            <li>Eventing Tools</li>
+            <li>Marionette is a layer on top of Backbone.</li>
+            <li>These additions address many of the issues I have with plain Backbone.</li>
+            <li>Retains the flexibility, simplicity, and explicit nature of Backbone.</li>
+            <li>Lots to cover hear, going to blow through</li>
           </ul>
-          <aside class='notes'>
-            <ul>
-              <li>Marionette is a layer on top of Backbone.</li>
-              <li>These additions address many of the issues I have with plain Backbone.</li>
-            </ul>
-          </aside>
-        </section>
+        </aside>
       </section>
 
       <section>
@@ -157,7 +200,6 @@
           <p class='small'><a href='https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md'>https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md</a>
           <aside class='notes'>
             <ul>
-              <li>ItemView extended from Backbone.View, has same functionality + more.</li>
               <li>Provides events/hooks on rendering/closing the view.</li>
               <li>Provides easy way to add custom functionality based on model events.</li>
             </ul>
@@ -226,16 +268,12 @@
           </code></pre>
           <aside class='notes'>
             <ul>
-              <li>This is a common pattern and problem in JS apps, and these layouts are a very elegant solution.</li>
+              <li>This is a common pattern and problem in backbone apps, and these layouts are a very elegant solution.</li>
               <li>These tie in particularly well to the modules piece</li>
+              <li>So, just this piece of Marionette can DRY up most backbone apps.</li>
             </ul>
           </aside>
         </section>
-
-        <section>
-          <h3>Views Recap</h3>
-        </section>
-
       </section>
 
       <section>
@@ -243,104 +281,180 @@
           <h2>Composite Applications with Marionette</h2>
           <aside class='notes'>
             <ul>
+              <li>
             </ul>
           </aside>
         </section>
 
         <section>
           <h3>Backbone.<strong>Wreqr</strong></h3>
-          <ul>
-            <li>RequestResponse</li>
-            <li>Event Aggregator</li>
-            <li>Commands</li>
-          </ul>
+          <p>Event Aggregator</p>
+          <pre><code class='javascript'>
+            var vent = new Backbone.Wreqr.EventAggregator();
+            vent.on('foo', function() {
+              console.log('foo event');
+            });
+            vent.trigger('foo');
+          </pre></code>
+          <p>RequestResponse</p>
+          <pre><code class='javascript'>
+            var reqres = new Backbone.Wreqr.RequestResponse();
+            reqres.setHandler('foo', function() {
+              return 'foo requested. this is the response';
+            });
+            var result = reqres.request('foo');
+            console.log(result);
+          </pre></code>
           <aside class='notes'>
             <ul>
+              <li>Part of Marionette</li>
+              <li>Tools to extend the Event based architecture of Backbone to a higher level</li>
+              <li>Event Aggregator - Applicaiton/Module level events</li>
+              <li>Request Response - Allows decoupling and abstract APIs for calling functions cross module</li>
             </ul>
           </aside>
         </section>
 
         <section>
           <h3>Marionette.<strong>Application</strong></h3>
+          <pre><code class='javascript'>
+            var App = new Backbone.Marionette.Application();
+
+            // No Template, uses HTML as rendered (by server).
+            App.addRegions({
+              app: '#app',
+              nav: '#nav'
+            });
+
+            App.addInitializer(function(options) {
+              Backbone.History.Start();
+              App.vent('history:started');
+              App.reqres.setHandler('foo', function() { return options.foo; });
+            });
+
+            App.start({foo: 'bar'});
+          </pre></code>
           <aside class='notes'>
             <ul>
+              <li>Applications are where things come together.</li>
+              <li>Typically you just have 1 of these.</li>
+              <li>Use some module system, or attach app to window.</li>
+              <li>Includes region manager (similar to layout, but uses existing DOM for template</li>
+              <li>Includes Event Aggregator</li>
+              <li>Includes Request/Response</li>
+              <li>Contains all the logic to start up your app.</li>
             </ul>
           </aside>
         </section>
 
         <section>
           <h3>Marionette.Application.<strong>Module</strong></h3>
+          <p>Isolating Models, Maintaining State</p>
+          <pre><code class='javascript'>
+            App.module('Entities.Frameworks', function(Module, App) {
+              var Model = Backbone.Model.extend({});
+              var Collection = Backbone.Collection.extend({model: Model});
+
+              // Manage loaded state (fetch logic omitted here);
+              var collection = new Collection();
+
+              App.reqres.setHandler('framework:collection', function() {
+                return collection;
+              });
+
+              App.reqres.setHandler('framework:model', function(id) {
+                return collection.get(id);
+              });
+            });
+          </pre></code>
           <aside class='notes'>
             <ul>
+              <li>Modules are tools to isolate your code in related sections.</li>
+              <li>Similar to what you get with Require.js, but very oriented to the app/module/sub module pattern.</li>
+              <li>Plays okay with require.js, plays very well with Browserify</li>
+              <li>In this example we have added a model(and sub module) that manages collection state.</li>
+              <li>In the real world there would probably be some logic here to fetch the collection, which could be isolate here.</li>
             </ul>
           </aside>
         </section>
 
         <section>
-          <h3>Modules Recap</h3>
+          <h3>Marionette.Application.<strong>Module</strong></h3>
+          <p>Isolating Screen Logic</p>
+          <pre><code class='javascript'>
+            App.module('Frameworks'); // Typically has routing logic
+            App.module('Frameworks.Show', function(Show, App) {
+              this.startWithParent = false;
+
+              var ItemView = Backbone.Marionette.ItemView.extend({
+                template: '#item-view',
+                modelEvents: { 'change' : 'render' }
+              });
+
+              var CompositeView = Backbone.Marionette.CompositeView.extend({
+                template: '#frames-view',
+                itemView: FrameworkView,
+                itemViewContainer: '.frameworks'
+              });
+
+              this.on('start', function() {
+                var collection = App.reqres.request('framework:collection');
+                var view = new CompositeView({collection: collection});
+                App.main.show(view);
+              });
+            });
+          </pre></code>
+          <aside class='notes'>
+            <ul>
+              <li>In this example we are isolating our view logic.</li>
+              <li>Modules are Event Aggregators</li>
+            </ul>
+          </aside>
         </section>
       </section>
 
       <section>
-        <section>
-          <h2>Managing <strong>Large</strong> Applications</h2>
-          <aside class='notes'>
-            <ul>
-            </ul>
-          </aside>
-        </section>
+        <h2>Managing <strong>Large</strong> Applications</h2>
+        <div class='side-by-side'>
+          <div class='left'>
+            <img src='composite.png' alt='Composite Architexture' />
+          </div>
+          <ul class='right'>
+            <li><strong>One Application</strong>
+            <li><strong>Model Modules</strong>
+              <ul>
+                <li>Request-Response API</li>
+                <li>Manage model state</li>
+              </ul>
+            </li>
+            <li><strong>One Module Per "Section"</strong>
+              <ul>
+                <li>Manages what screen is displayed</li>
+                <li>Home to the Router for that section</li>
+              </ul>
+            </li>
+            <li><strong>One Sub-Module per "Screen"</strong>
+              <ul>
+                <li>Manages Layout for screen</li>
+                <li>Renders appropriate components in regions</li>
+                <li>Event aggregate for cross component interactions</li>
+              </ul>
+            </li>
+            <li><strong>One Sub-Module per "Component"</strong>
+              <ul>
+                <li>Renders views</li>
+                <li>Triggers events up the chain</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <aside class='notes'>
+          <ul>
+            <li>We have seen the tools, but how your organize is extremely important</li>
+          </ul>
+        </aside>
+      </section>
 
-        <section>
-          <h3>One Application</h3>
-          <aside class='notes'>
-            <ul>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h3>Model Modules</h3>
-
-          <aside class='notes'>
-            <ul>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h3>One Module Per "Section"</h3>
-
-          <aside class='notes'>
-            <ul>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h3>One Sub-module per "Screen"</h3>
-
-          <aside class='notes'>
-            <ul>
-              <li>This should also loosely correspond to url routes.</li>
-              <li>Renders a layout if many components.</li>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h3>One Sub-Sub-module per "Component"</h3>
-
-          <aside class='notes'>
-            <ul>
-            </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h3>Modules Routing</h3>
-        </section>
-
-     </section>
 
       <section>
         <h2>Marionette <strong>VS</strong> The Competition</h2>
@@ -363,6 +477,15 @@
       <section>
         <h2>Should you use Marionette?</h2>
         <p><strong>Maybe.</strong></p>
+        <aside class='notes'>
+          <ul>
+            <li>It isn't right for every project.</li>
+            <li>Large scale.</li>
+            <li>Value flexibility over convention.</li>
+            <li>Value explicit interactions over magic.</li>
+            <li>Value extremely good documentation.</li>
+          </ul>
+        </aside>
       </section>
 
       <section>
