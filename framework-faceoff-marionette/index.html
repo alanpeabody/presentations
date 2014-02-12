@@ -161,9 +161,15 @@
           <h3>Marionette.<strong>View</strong></h3>
           <ul>
             <li>Inherits from Backbone.view.</li>
-            <li>Adds standard templating and rendering.</li>
-            <li>Implements a standard API for "closing" a view.</li>
-            <li>Is prototype of every other Marionette view type.</li>
+            <li>Adds best practices for
+              <ul>
+                <li>Templating</li>
+                <li>Rendering</li>
+                <li>Event Binding &amp; Unbinding</li>
+                <li>Closing</li>
+              </ul>
+            </li>
+            <li>Prototype of every other Marionette view type.</li>
           </ul>
           <aside class='notes'>
             <ul>
@@ -178,8 +184,17 @@
           <ul>
             <li>Renders one model.</li>
             <li>Used for forms, display, listing items.</li>
-            <li>Can be bound to render on model events such as change.</li>
+            <li>Can be bound to re-render on model events such as change.</li>
           </ul>
+          <aside class='notes'>
+            <ul>
+              <li>This one view can dry up any backbone application.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>ItemView</strong></h3>
           <pre><code class='html'>
             &lt;div id='app'&gt;&lt;/div&gt;
             &lt;script id='item-view' type='text/html'&gt;
@@ -197,13 +212,6 @@
             var view = new FrameworkView({model: framework});
             $('#app').html(view.render().$el);
           </pre></code>
-          <p class='small'><a href='https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md'>https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md</a>
-          <aside class='notes'>
-            <ul>
-              <li>Provides events/hooks on rendering/closing the view.</li>
-              <li>Provides easy way to add custom functionality based on model events.</li>
-            </ul>
-          </aside>
         </section>
 
         <section>
@@ -213,6 +221,15 @@
             <li>Great for Model + Related Collection and Leaf view structures.</li>
             <li>Automatically keeps dom in sync with Collection.</li>
           </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Render a collection in a template (such as a table).</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>CompositeView</strong></h3>
           <pre><code class='html'>
             &lt;script id='frames-view' type='text/html'&gt;
               &lt;h1&gt;Frameworks:&lt;/h1&gt;
@@ -230,21 +247,25 @@
             var compView = new FrameworksView({collection: frameworks});
             $('#app').html(compView.render().$el);
           </pre></code>
-          <aside class='notes'>
-            <ul>
-              <li>I am skipping Collection view, which is useful but I almost always use a Composite view instead.</li>
-              <li>Composite views are incredibly helpful, and can dry up backbone code significantly.</li>
-            </ul>
-          </aside>
         </section>
 
 
         <section>
           <h3>Marionette.<strong>Layout</strong></h3>
           <ul>
-            <li>Manages opening and closing of child views.</li>
-            <li>Has an instance of Marionette.<strong>RegionManager</strong> built it.</li>
+            <li>A Template, a view, and a Marionette.<strong>RegionManager</strong>.</li>
+            <li>Manages opening and closing of nested views.</li>
+            <li>Can be nested itself.</li>
           </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Nesting views is a common pattern and problem in backbone apps.</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>Layout</strong></h3>
           <pre><code class='html'>
             &lt;script id='frames-layout' type='text/html'&gt;
               &lt;div id='menu'&gt;&lt;/div&gt;
@@ -266,24 +287,44 @@
             layout.main.show(compView);
             layout.main.close();
           </code></pre>
-          <aside class='notes'>
-            <ul>
-              <li>This is a common pattern and problem in backbone apps, and these layouts are a very elegant solution.</li>
-              <li>These tie in particularly well to the modules piece</li>
-              <li>So, just this piece of Marionette can DRY up most backbone apps.</li>
-            </ul>
-          </aside>
         </section>
       </section>
 
       <section>
         <section>
-          <h2>Composite Applications with Marionette</h2>
+          <h2>Managing <strong>Large</strong> Applications</h2>
           <aside class='notes'>
             <ul>
-              <li>
+              <li>Managing your application as it grows can be tough.</li>
+              <li>Before we look at the tools Marionette provides for organizing code, lets take a high level look at organizing javascript "the Marionette way".
             </ul>
           </aside>
+        </section>
+
+        <section>
+          <div class='side-by-side'>
+            <h3>Composite Architexture</h3>
+            <div class='left'>
+              <img src='composite.png' alt='Composite Architexture' />
+            </div>
+            <ul class='right'>
+              <li>One <strong>Application</strong>
+                <ul>
+                  <li>One Module Per <strong>Model/Collection</strong></li>
+                  <li>One Module Per <strong>Section</strong>
+                    <ul>
+                      <li>One Module per <strong>Screen</strong>
+                        <ul>
+                          <li>One Module per <strong>Component</strong></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><strong>Event</strong> based interaction.</li>
+            </ul>
+          </div>
         </section>
 
         <section>
@@ -307,10 +348,29 @@
           </pre></code>
           <aside class='notes'>
             <ul>
+              <li>So lets start with events</li>
               <li>Part of Marionette</li>
               <li>Tools to extend the Event based architecture of Backbone to a higher level</li>
               <li>Event Aggregator - Applicaiton/Module level events</li>
               <li>Request Response - Allows decoupling and abstract APIs for calling functions cross module</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h3>Marionette.<strong>Application</strong></h3>
+          <ul>
+            <li>Top level object</li>
+            <li>Includes Event Aggregator</li>
+            <li>Includes Request/Response</li>
+            <li>Includes Region Manager</li>
+            <li>Responsible for starting your app</li>
+          </ul>
+          <aside class='notes'>
+            <ul>
+              <li>Use some module system, or attach app to window.</li>
+              <li>Includes region manager (similar to layout, but uses existing DOM for template</li>
+              <li>Contains all the logic to start up your app.</li>
             </ul>
           </aside>
         </section>
@@ -334,22 +394,26 @@
 
             App.start({foo: 'bar'});
           </pre></code>
+        </section>
+
+        <section>
+          <h3>Marionette.Application.<strong>Module</strong></h3>
+          <ul>
+            <li>Isolate and organize your code</li>
+            <li>Provides tool for encapsulation of state and logic</li>
+            <li>Inherits from Event Aggregator</li>
+            <li>Optimized for Submodule patterns</li>
+          </ul>
           <aside class='notes'>
             <ul>
-              <li>Applications are where things come together.</li>
-              <li>Typically you just have 1 of these.</li>
-              <li>Use some module system, or attach app to window.</li>
-              <li>Includes region manager (similar to layout, but uses existing DOM for template</li>
-              <li>Includes Event Aggregator</li>
-              <li>Includes Request/Response</li>
-              <li>Contains all the logic to start up your app.</li>
+              <li>Similar to what you get with Require.js, but very oriented to the app/module/sub module pattern.</li>
+              <li>Plays okay with require.js, plays very well with Browserify</li>
             </ul>
           </aside>
         </section>
 
         <section>
           <h3>Marionette.Application.<strong>Module</strong></h3>
-          <p>Isolating Models, Maintaining State</p>
           <pre><code class='javascript'>
             App.module('Entities.Frameworks', function(Module, App) {
               var Model = Backbone.Model.extend({});
@@ -367,29 +431,14 @@
               });
             });
           </pre></code>
-          <aside class='notes'>
-            <ul>
-              <li>Modules are tools to isolate your code in related sections.</li>
-              <li>Similar to what you get with Require.js, but very oriented to the app/module/sub module pattern.</li>
-              <li>Plays okay with require.js, plays very well with Browserify</li>
-              <li>In this example we have added a model(and sub module) that manages collection state.</li>
-              <li>In the real world there would probably be some logic here to fetch the collection, which could be isolate here.</li>
-            </ul>
-          </aside>
         </section>
 
         <section>
           <h3>Marionette.Application.<strong>Module</strong></h3>
-          <p>Isolating Screen Logic</p>
-          <pre><code class='javascript'>
-            App.module('Frameworks'); // Typically has routing logic
-            App.module('Frameworks.Show', function(Show, App) {
+          <pre><code class='javascript'>            App.module('Frameworks.Show', function(Show, App) {
               this.startWithParent = false;
 
-              var ItemView = Backbone.Marionette.ItemView.extend({
-                template: '#item-view',
-                modelEvents: { 'change' : 'render' }
-              });
+              var ItemView = Backbone.Marionette.ItemView.extend({ template: '#item-view' });
 
               var CompositeView = Backbone.Marionette.CompositeView.extend({
                 template: '#frames-view',
@@ -402,59 +451,9 @@
                 var view = new CompositeView({collection: collection});
                 App.main.show(view);
               });
-            });
-          </pre></code>
-          <aside class='notes'>
-            <ul>
-              <li>In this example we are isolating our view logic.</li>
-              <li>Modules are Event Aggregators</li>
-            </ul>
-          </aside>
+            });</pre></code>
         </section>
       </section>
-
-      <section>
-        <h2>Managing <strong>Large</strong> Applications</h2>
-        <div class='side-by-side'>
-          <div class='left'>
-            <img src='composite.png' alt='Composite Architexture' />
-          </div>
-          <ul class='right'>
-            <li><strong>One Application</strong>
-            <li><strong>Model Modules</strong>
-              <ul>
-                <li>Request-Response API</li>
-                <li>Manage model state</li>
-              </ul>
-            </li>
-            <li><strong>One Module Per "Section"</strong>
-              <ul>
-                <li>Manages what screen is displayed</li>
-                <li>Home to the Router for that section</li>
-              </ul>
-            </li>
-            <li><strong>One Sub-Module per "Screen"</strong>
-              <ul>
-                <li>Manages Layout for screen</li>
-                <li>Renders appropriate components in regions</li>
-                <li>Event aggregate for cross component interactions</li>
-              </ul>
-            </li>
-            <li><strong>One Sub-Module per "Component"</strong>
-              <ul>
-                <li>Renders views</li>
-                <li>Triggers events up the chain</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <aside class='notes'>
-          <ul>
-            <li>We have seen the tools, but how your organize is extremely important</li>
-          </ul>
-        </aside>
-      </section>
-
 
       <section>
         <h2>Marionette <strong>VS</strong> The Competition</h2>
