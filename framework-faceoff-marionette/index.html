@@ -22,10 +22,9 @@
         <p>Slides: <a href='http://alanpeabody.com/presentations/framework-faceoff-marionette/'>http://alanpeabody.com/presentations/framework-faceoff-marionette/</a></p>
         <aside class='notes'>
           <ul>
-            <li>First, I am not a designer, just a developer who like the full stack and is always learning something new.</li>
             <li>Influenced by my History with Ruby/Rails and functional programming.</li>
             <li>Have built and worked on large Backbone and Ember apps.</li>
-            <li>Unfortunately, I have not yet had the opportunity to build a large Angular, React, etc app. So I can't comment on them terribly well.</li>
+            <li>Unfortunately, I have not yet had the opportunity to build a large Angular or React app so take anything I say about them with a grain of salt.</li>
           </ul>
         </aside>
       </section>
@@ -47,12 +46,6 @@
           Backbone.Marionette is a <strong>composite application</strong> library for <strong>Backbone.js</strong> that aims to simplify the construction of <strong>large scale</strong> JavaScript applications.
         </blockquote>
         <p class='attribution'>&mdash; <a href='http://marionettejs.com'>marionettejs.com</a></p>
-        <p class='small'><strong>Emphasis mine</strong></p>
-
-        <aside class='notes'>
-          <ul>
-          </ul>
-        </aside>
       </section>
 
       <section>
@@ -76,6 +69,7 @@
           <aside class='notes'>
             <ul>
               <li>Models responsible for working with persistence APIs</li>
+              <li>Collections are just groups of Models</li>
               <li>Views handle interaction between Model/Collection and Template(Dom)</li>
               <li>Templates are the DOM structure of the View</li>
               <li>Routers handle proper screens are displayed based on url state</li>
@@ -111,7 +105,7 @@
           </ul>
           <aside class='notes'>
             <ul>
-              <li>At under 1500 lines of code (with commets) Backbone is super easy to learn and use.</li>
+              <li>At under 1500 lines of code (with comments) Backbone is super easy to learn and use.</li>
               <li>The _ way carries though everywhere here. No injection of Object or any unexpected behavior.</li>
               <li>Tons of plugins, from Frameworks like Marionette to binding systems like Backbone.StickIt.</li>
             </ul>
@@ -147,7 +141,6 @@
             <li>Marionette is a layer on top of Backbone.</li>
             <li>These additions address many of the issues I have with plain Backbone.</li>
             <li>Retains the flexibility, simplicity, and explicit nature of Backbone.</li>
-            <li>Lots to cover hear, going to blow through</li>
           </ul>
         </aside>
       </section>
@@ -155,6 +148,10 @@
       <section>
         <section>
           <h2>Marionette Views &amp View Management</h2>
+          <aside class='notes'>
+            <p>Lets get started by looking at the views marionette gives you.</p>
+            <p>Just using the views and no other part of Marionette is a greate way to get started and a big improvement over raw backbone.</p>
+          </aside>
         </section>
 
         <section>
@@ -173,7 +170,7 @@
           </ul>
           <aside class='notes'>
             <ul>
-              <li>ItemView extended from Backbone.View, has same functionality + more.</li>
+              <li>Extended from Backbone.View, has same functionality + more.</li>
               <li>Template can be a selector to dom or function. Compatible with Handlebars and Mustache, as well as the default Underscore.</li>
             </ul>
           </aside>
@@ -217,13 +214,20 @@
         <section>
           <h3>Marionette.<strong>CompositeView</strong></h3>
           <ul>
-            <li>Renders an optional Model and a Collection, renders each Collection item in an Item view.</li>
-            <li>Great for Model + Related Collection and Leaf view structures.</li>
-            <li>Automatically keeps dom in sync with Collection.</li>
+            <li>Renders a Collection with:
+              <ul>
+                <li>A wrapper template</li>
+                <li>An ItemView for each model in collection</li>
+                <li>An optional Model</li>
+              </ul>
+            </li>
+            <li>Great for Tables</li>
+            <li>Great for Tree Structures (recursive!)</li>
           </ul>
           <aside class='notes'>
             <ul>
-              <li>Render a collection in a template (such as a table).</li>
+              <li>Render a collection in a template.</li>
+              <li>Automatically keeps DOM in sync with Collection.</li>
             </ul>
           </aside>
         </section>
@@ -248,7 +252,6 @@
             $('#app').html(compView.render().$el);
           </pre></code>
         </section>
-
 
         <section>
           <h3>Marionette.<strong>Layout</strong></h3>
